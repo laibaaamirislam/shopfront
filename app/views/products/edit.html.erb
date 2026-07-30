@@ -1,0 +1,26 @@
+
+<h1>Add a Product</h1>
+
+<%= form_with model: @product, local: true do |form| %>
+  <p>
+    <%= form.label :name %><br>
+    <%= form.text_field :name %>
+  </p>
+  <p>
+    <%= form.label :description %><br>
+    <%= form.text_area :description %>
+  </p>
+  <p>
+    <%= form.label :price %><br>
+    <%= form.number_field :price, step: 0.01 %>
+  </p>
+  <p>
+    <%= form.label :stock_quantity %><br>
+    <%= form.number_field :stock_quantity %>
+  </p>
+  <p>
+    <%= form.label :sku %><br>
+    <%= form.text_field :sku %>
+  </p>
+  <p><%= form.submit "Update Product" %></p>
+<% end %>

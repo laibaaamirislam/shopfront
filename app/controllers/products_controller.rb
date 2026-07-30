@@ -16,17 +16,33 @@ class ProductsController < ApplicationController
     def create
         @product = Product.new(product_params)
 
-            if @product.save
-                flash[:notice] = "Product was added successfully."
-                redirect_to product_path(@product)
-            else
-                render 'new'
-            end
+        if @product.save
+            flash[:notice] = "Product was added successfully."
+            redirect_to product_path(@product)
+        else
+            render 'new'
         end
+    end
 
-        private
+    def edit
+        @product = Product.find(params[:id])
+    end
 
-        def product_params
-            params.require(:product).permit(:name, :description, :price, :stock_quantity, :sku)
+    def update
+        @product = Product.find(params[:id])
+
+        if @product.update(product_params)
+            flash[:notice] = "Product was updated successfully."
+            redirect_to product_path(@product)
+        else
+            render 'edit'
         end
+    end
+
+    private
+    def product_params
+        params.require(:product).permit(:name, :description, :price, :stock_quantity, :sku)
+    end
+
+
 end
