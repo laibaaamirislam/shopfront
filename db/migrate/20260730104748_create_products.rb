@@ -1,0 +1,14 @@
+class CreateProducts < ActiveRecord::Migration[8.1]
+  def change
+    create_table :products do |t|
+      t.string :name
+      t.text :description
+      t.decimal :price
+      t.integer :stock_quantity
+      t.string :sku
+
+      t.timestamps
+    end
+    add_index :products, :sku, unique: true
+  end
+end
