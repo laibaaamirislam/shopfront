@@ -13,5 +13,5 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   # config/routes.rb
-  resources :products, only: [:show]
+  resources :products, only: [:show, :index]
 end
