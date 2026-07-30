@@ -1,0 +1,12 @@
+
+<h1><%= @product.name %></h1>
+<p><%= @product.description %></p>
+<p><strong>Price:</strong> <%= number_to_currency(@product.price) %></p>
+<p><strong>SKU:</strong> <%= @product.sku %></p>
+<p>
+  <% if @product.stock_quantity > 0 %>
+    In stock (<%= @product.stock_quantity %> available)
+  <% else %>
+    Out of stock
+  <% end %>
+</p>
