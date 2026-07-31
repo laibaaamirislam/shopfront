@@ -1,8 +1,10 @@
 # app/controllers/products_controller.rb
 class ProductsController < ApplicationController
 
+    before_action :set_product, only: [:show, :edit, :update, :destroy]
+
     def show
-        @product = Product.find(params[:id])
+        
     end
 
     def index
@@ -25,11 +27,11 @@ class ProductsController < ApplicationController
     end
 
     def edit
-        @product = Product.find(params[:id])
+        
     end
 
     def update
-        @product = Product.find(params[:id])
+        
 
         if @product.update(product_params)
             flash[:notice] = "Product was updated successfully."
@@ -40,7 +42,7 @@ class ProductsController < ApplicationController
     end
 
     def destroy
-        @product = Product.find(params[:id])
+        
         @product.destroy
         flash[:notice] = "Product was removed from the catalog."
         redirect_to products_path
@@ -49,6 +51,10 @@ class ProductsController < ApplicationController
     private
     def product_params
         params.require(:product).permit(:name, :description, :price, :stock_quantity, :sku)
+    end
+
+    def set_product
+        @product = Product.find(params[:id])
     end
 
 
