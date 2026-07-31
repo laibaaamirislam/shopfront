@@ -1,4 +1,4 @@
-<!-- app/views/products/new.html.erb -->
+
 <h1>Add a New Product</h1>
 
 <%= form_with model: @product, local: true do |form| %>
@@ -23,4 +23,9 @@
     <%= form.text_field :sku %>
   </p>
   <p><%= form.submit "Add Product" %></p>
+
 <% end %>
+
+<p>
+  <%= link_to "Back to Home", products_path %>
+</p>

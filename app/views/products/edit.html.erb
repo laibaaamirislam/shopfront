@@ -22,5 +22,16 @@
     <%= form.label :sku %><br>
     <%= form.text_field :sku %>
   </p>
-  <p><%= form.submit "Update Product" %></p>
+  
+  <p>
+    <%= form.submit "Update Product", 
+      onclick: "return confirm('Are you sure you want to update this product?');" %>
+  </p>
+
+
 <% end %>
+
+<p>
+  <%= link_to "Cancel Edit, Back to Home", products_path, 
+    onclick: "return confirm('Are you sure? Any unsaved changes will be lost.');" %>
+</p>

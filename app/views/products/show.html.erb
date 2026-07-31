@@ -15,7 +15,11 @@
   <%= link_to "Edit", edit_product_path(@product)%>
 </p>
 
+<p>
+  <%= link_to "Delete", product_path(@product), method: :delete, 
+    onclick: "return confirm('Remove this product?')" %>
+</p>
 
-  <%= button_to "Delete", product_path(@product), method: :delete,
-    data: { turbo_confirm: "Remove this product?" } %>
-  <hr>
+<p>
+  <%= link_to "All Products", products_path %>
+</p>
