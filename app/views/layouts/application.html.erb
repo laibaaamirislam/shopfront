@@ -23,6 +23,16 @@
   </head>
 
   <body>
+  <!-- app/views/layouts/application.html.erb -->
+    <nav>
+      <%= link_to "Shopfront", root_path %>
+      <%= link_to "All Products", products_path %>
+      <%= link_to "Add Product", new_product_path %>
+    </nav>
+
+    <% flash.each do |type, message| %>
+      <div class="flash <%= type %>"><%= message %></div>
+    <% end %>
     <%= yield %>
   </body>
 </html>

@@ -5,8 +5,12 @@
 <p><strong>SKU:</strong> <%= @product.sku %></p>
 <p>
   <% if @product.stock_quantity > 0 %>
-    In stock (<%= @product.stock_quantity %> available)
+    In stock (<%= @product.stock_quantity %>) available
   <% else %>
     Out of stock
   <% end %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_product_path(@product)%>
 </p>

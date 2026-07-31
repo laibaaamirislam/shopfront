@@ -14,4 +14,5 @@ Rails.application.routes.draw do
 
   # config/routes.rb
   resources :products
+  root 'products#index'
 end
