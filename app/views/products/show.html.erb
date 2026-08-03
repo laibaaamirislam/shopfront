@@ -1,25 +1,28 @@
 
-<h1><%= @product.name %></h1>
-<p><%= @product.description %></p>
-<p><strong>Price:</strong> <%= number_to_currency(@product.price) %></p>
-<p><strong>SKU:</strong> <%= @product.sku %></p>
-<p>
-  <% if @product.stock_quantity > 0 %>
-    In stock (<%= @product.stock_quantity %>) available
-  <% else %>
-    Out of stock
-  <% end %>
-</p>
+<div class="row">
+  <div class="col-md-8">
+    <h1><%= @product.name %></h1>
+    <p><%= @product.description %></p>
+  </div>
 
-<p>
-  <%= link_to "Edit", edit_product_path(@product)%>
-</p>
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-body">
+        <h3 class="card-title"><%= number_to_currency(@product.price) %></h3>
+        <p class="card-text">
+          <span class="badge <%= @product.stock_quantity > 0 ? 'bg-success' : 'bg-danger' %>">
+            <%= @product.stock_quantity > 0 ? "In stock (#{@product.stock_quantity} available)" : "Out of stock" %>
+          </span>
+        </p>
+        <p class="text-muted small">SKU: <%= @product.sku %></p>
 
-<p>
-  <%= link_to "Delete", product_path(@product), method: :delete, 
-    onclick: "return confirm('Remove this product?')" %>
-</p>
-
-<p>
-  <%= link_to "All Products", products_path %>
-</p>
+        <div class="d-grid gap-2">
+          <%= link_to "Edit", edit_product_path(@product), class: "btn btn-outline-secondary" %>
+          <%= button_to "Delete", product_path(@product), method: :delete,
+              class: "btn btn-outline-danger",
+              data: { turbo_confirm: "Remove this product?" } %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
