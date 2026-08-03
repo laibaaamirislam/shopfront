@@ -1,2 +1,24 @@
+
+$page-bg:     #EFDDD9;
+$card-bg:     #FBF6F3;
+$pink:        #C98A94;
+$pink-light:  #D9A3AC;
+$pink-dark:   #B87A85;
+$border-pink: #E3CFCA;
+$text-dark:   #5C3A40;
+$text-muted:  #9C7A80;
+$text-faint:  #B08088;
+
+$primary:    $pink;
+$secondary:  $text-dark;
+$body-bg:    $page-bg;
+$body-color: $text-dark;
+
+$font-family-sans-serif: "Inter", sans-serif;
+$headings-font-family:   "Playfair Display", serif;
+$headings-font-weight:   500;
+
+
+@import "custom";
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';

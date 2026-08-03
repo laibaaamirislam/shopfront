@@ -1,0 +1,117 @@
+.content-card {
+  background: $card-bg;
+  border-radius: 4px;
+  padding: 2.5rem 2rem;
+  max-width: 700px;
+}
+
+.brand-wordmark {
+  font-family: $headings-font-family;
+  font-style: italic;
+  font-size: 15px;
+  letter-spacing: 1px;
+  color: $text-dark;
+  text-decoration: none;
+
+  &:hover { color: $text-dark; }
+}
+
+.nav-caps {
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: $text-muted;
+  text-decoration: none;
+}
+
+.eyebrow {
+  font-family: $headings-font-family;
+  font-style: italic;
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: $text-faint;
+  margin-bottom: 8px;
+}
+
+.product-title {
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  color: $text-dark;
+}
+
+.product-desc {
+  font-size: 13px;
+  line-height: 1.7;
+  color: $text-muted;
+}
+
+.product-price {
+  font-size: 18px;
+  font-weight: 500;
+  color: $text-dark;
+}
+
+.btn-outline-editorial {
+  border: 0.5px solid $pink;
+  background: transparent;
+  color: $text-dark;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 12px 20px;
+  border-radius: 2px;
+
+  &:hover {
+    background: $pink;
+    color: $card-bg;
+  }
+}
+
+.product-image-block {
+  background: $pink;
+  border-radius: 2px;
+  aspect-ratio: 4 / 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+
+  img { width: 100%; height: 100%; object-fit: cover; }
+}
+
+.related-section {
+  border-top: 0.5px solid $border-pink;
+  padding-top: 2rem;
+}
+
+.related-heading {
+  font-family: $headings-font-family;
+  font-size: 17px;
+  font-weight: 500;
+  color: $text-dark;
+}
+
+.related-thumb {
+  background: $pink;
+  border-radius: 2px;
+  aspect-ratio: 1;
+  margin-bottom: 8px;
+  overflow: hidden;
+
+  img { width: 100%; height: 100%; object-fit: cover; }
+
+  &.variant-light { background: $pink-light; }
+  &.variant-dark  { background: $pink-dark; }
+}
+
+.related-name {
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  color: $text-dark;
+  margin-bottom: 2px;
+}
+
+.related-price {
+  font-size: 12px;
+  color: $text-muted;
+}

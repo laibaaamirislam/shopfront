@@ -3,9 +3,9 @@ class ProductsController < ApplicationController
 
     before_action :set_product, only: [:show, :edit, :update, :destroy]
 
-    def show
-        
-    end
+        def show
+        @related_products = Product.where.not(id: @product.id).order(created_at: :desc).limit(3)
+        end
 
     def index
         @products = Product.all

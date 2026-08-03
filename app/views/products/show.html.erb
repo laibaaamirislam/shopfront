@@ -1,28 +1,39 @@
 
-<div class="row">
-  <div class="col-md-8">
-    <h1><%= @product.name %></h1>
-    <p><%= @product.description %></p>
+<div class="content-card mx-auto">
+  <div class="row g-4 mb-5">
+    <div class="col-md-6">
+      <div class="product-image-block">
+        <% if @product.respond_to?(:image) && @product.image.attached? %>
+          <%= image_tag @product.image %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="col-md-6 d-flex flex-column justify-content-center">
+      <p class="eyebrow">Ceramic</p>
+      <h1 class="product-title mb-3"><%= @product.name %></h1>
+      <p class="product-desc mb-4"><%= @product.description %></p>
+      <p class="product-price mb-4"><%= number_to_currency(@product.price) %></p>
+      <%= button_to "Add to Cart", "#", class: "btn btn-outline-editorial align-self-start" %>
+    </div>
   </div>
 
-  <div class="col-md-4">
-    <div class="card">
-      <div class="card-body">
-        <h3 class="card-title"><%= number_to_currency(@product.price) %></h3>
-        <p class="card-text">
-          <span class="badge <%= @product.stock_quantity > 0 ? 'bg-success' : 'bg-danger' %>">
-            <%= @product.stock_quantity > 0 ? "In stock (#{@product.stock_quantity} available)" : "Out of stock" %>
-          </span>
-        </p>
-        <p class="text-muted small">SKU: <%= @product.sku %></p>
-
-        <div class="d-grid gap-2">
-          <%= link_to "Edit", edit_product_path(@product), class: "btn btn-outline-secondary" %>
-          <%= button_to "Delete", product_path(@product), method: :delete,
-              class: "btn btn-outline-danger",
-              data: { turbo_confirm: "Remove this product?" } %>
+  <div class="related-section">
+    <h2 class="related-heading mb-4">You <em>may</em> also like</h2>
+    <div class="row row-cols-3 g-3">
+      <% @related_products.each_with_index do |related, i| %>
+        <div class="col">
+          <%= link_to product_path(related), class: "text-decoration-none" do %>
+            <div class="related-thumb <%= i == 0 ? 'variant-light' : (i == 2 ? 'variant-dark' : '') %>">
+              <% if related.respond_to?(:image) && related.image.attached? %>
+                <%= image_tag related.image %>
+              <% end %>
+            </div>
+            <p class="related-name"><%= related.name %></p>
+            <p class="related-price"><%= number_to_currency(related.price) %></p>
+          <% end %>
         </div>
-      </div>
+      <% end %>
     </div>
   </div>
 </div>
