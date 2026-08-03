@@ -25,41 +25,47 @@
 
   <body>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
-      <div class="container">
-        <%= link_to "Shopfront", root_path, class: "navbar-brand" %>
+<!-- app/views/layouts/application.html.erb -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+  <div class="container">
+    <%= link_to "Shopfront", root_path, class: "navbar-brand" %>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <%= link_to "Products", products_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Add Product", new_product_path, class: "nav-link" %>
+        </li>
+        <%# When you build out Categories later, add this here:
             <li class="nav-item">
-              <%= link_to "Products", products_path, class: "nav-link" %>
+              <%= link_to "Categories", categories_path, class: "nav-link" %>
             </li>
-            <li class="nav-item">
-              <%= link_to "Add Product", new_product_path, class: "nav-link" %>
-            </li>
-
-            <li class="nav-item">
-              <%= link_to "About", about_path, class: "nav-link" %>
-            </li>
-            <li class="nav-item">
-              <%= link_to "Contact", contact_path, class: "nav-link" %>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-
-    <div class="container">
-      <% flash.each do |type, message| %>
-        <div class="flash <%= type %>"><%= message %></div>
-      <% end %>
-
-      <%= yield %>
+        %>
+        <li class="nav-item">
+          <%= link_to "About", about_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Contact", contact_path, class: "nav-link" %>
+        </li>
+      </ul>
     </div>
+  </div>
+</nav>
+
+<div class="container">
+  <% flash.each do |type, message| %>
+    <div class="flash <%= type %>"><%= message %></div>
+  <% end %>
+
+  <%= yield %>
+</div>
+
 
   </body>
 </html>
