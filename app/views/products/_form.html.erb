@@ -1,4 +1,4 @@
-<!-- app/views/products/_form.html.erb -->
+
 <%= form_with model: product, local: true do |form| %>
   <% if product.errors.any? %>
     <div class="alert alert-danger">
@@ -10,7 +10,6 @@
       </ul>
     </div>
   <% end %>
-
 
   <div class="mb-3">
     <%= form.label :name, class: "form-label" %>
