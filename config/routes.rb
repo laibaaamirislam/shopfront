@@ -13,7 +13,8 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 
-  # config/routes.rb
+
+  resources :categories
   resources :products
   root 'pages#home'
   get 'about', to: 'pages#about'
