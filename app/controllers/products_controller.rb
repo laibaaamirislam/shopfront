@@ -4,7 +4,8 @@ class ProductsController < ApplicationController
     before_action :set_product, only: [:show, :edit, :update, :destroy]
 
     def show
-        @related_products = Product.where.not(id: @product.id).order(created_at: :desc).limit(3)
+    @related_products = @product.category.products
+        .where.not(id: @product.id).limit(3)
     end
 
     def index
@@ -49,9 +50,6 @@ class ProductsController < ApplicationController
     end
 
     private
-    # def product_params
-    #     params.require(:product).permit(:name, :description, :price, :stock_quantity, :sku)
-    # end
 
     def product_params
     params.require(:product).permit(:name, :description, :price, :stock_quantity, :sku, :category_id)

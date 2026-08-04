@@ -1,50 +1,9 @@
 
-# <%= form_with model: product, local: true do |form| %>
-#   <% if product.errors.any? %>
-#     <div class="alert alert-danger">
-#       <h5><%= pluralize(product.errors.count, "error") %> prohibited this product from saving:</h5>
-#       <ul class="mb-0">
-#         <% product.errors.full_messages.each do |message| %>
-#           <li><%= message %></li>
-#         <% end %>
-#       </ul>
-#     </div>
-#   <% end %>
-
-#   <div class="mb-3">
-#     <%= form.label :name, class: "form-label" %>
-#     <%= form.text_field :name, class: "form-control" %>
-#   </div>
-
-#   <div class="mb-3">
-#     <%= form.label :description, class: "form-label" %>
-#     <%= form.text_area :description, class: "form-control", rows: 4 %>
-#   </div>
-
-#   <div class="mb-3">
-#     <%= form.label :price, class: "form-label" %>
-#     <%= form.number_field :price, step: 0.01, class: "form-control" %>
-#   </div>
-
-#   <div class="mb-3">
-#     <%= form.label :stock_quantity, class: "form-label" %>
-#     <%= form.number_field :stock_quantity, class: "form-control" %>
-#   </div>
-
-#   <div class="mb-3">
-#     <%= form.label :sku, class: "form-label" %>
-#     <%= form.text_field :sku, class: "form-control" %>
-#   </div>
-
-#   <%= form.submit class: "btn btn-primary" %>
-# <% end %>
-
-<!-- app/views/products/_form.html.erb -->
 <%= form_with model: product, local: true do |form| %>
   <% if product.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(product.errors.count, "error") %> prohibited this product from saving:</h2>
-      <ul>
+    <div class="alert alert-danger">
+      <h5><%= pluralize(product.errors.count, "error") %> prohibited this product from saving:</h5>
+      <ul class="mb-0">
         <% product.errors.full_messages.each do |message| %>
           <li><%= message %></li>
         <% end %>
@@ -52,30 +11,37 @@
     </div>
   <% end %>
 
-  <p>
-    <%= form.label :category_id, "Category" %><br>
-    <%= form.collection_select :category_id, Category.all, :id, :name, prompt: "Select a category" %>
-  </p>
+  <div class="mb-3">
+    <%= form.label :category_id, "Category", class: "form-label" %>
+    <%= form.collection_select :category_id, Category.all, :id, :name,
+        { prompt: "Select a category" }, { class: "form-select" } %>
+  </div>
 
-  <p>
-    <%= form.label :name %><br>
-    <%= form.text_field :name %>
-  </p>
-  <p>
-    <%= form.label :description %><br>
-    <%= form.text_area :description %>
-  </p>
-  <p>
-    <%= form.label :price %><br>
-    <%= form.number_field :price, step: 0.01 %>
-  </p>
-  <p>
-    <%= form.label :stock_quantity %><br>
-    <%= form.number_field :stock_quantity %>
-  </p>
-  <p>
-    <%= form.label :sku %><br>
-    <%= form.text_field :sku %>
-  </p>
-  <p><%= form.submit %></p>
+  <div class="mb-3">
+    <%= form.label :name, class: "form-label" %>
+    <%= form.text_field :name, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :description, class: "form-label" %>
+    <%= form.text_area :description, class: "form-control", rows: 4 %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :price, class: "form-label" %>
+    <%= form.number_field :price, step: 0.01, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :stock_quantity, class: "form-label" %>
+    <%= form.number_field :stock_quantity, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :sku, class: "form-label" %>
+    <%= form.text_field :sku, class: "form-control" %>
+  </div>
+
+  <%= form.submit class: "btn btn-primary" %>
 <% end %>
+

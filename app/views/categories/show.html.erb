@@ -1,7 +1,19 @@
 <!-- app/views/categories/show.html.erb -->
-<h1><%= @category.name %></h1>
+<div class="content-card">
+  <p class="eyebrow">Category</p>
+  <h1 class="product-title mb-4"><%= @category.name %></h1>
 
-<h2>Products in this category</h2>
-<% @products.each do |product| %>
-  <p><%= link_to product.name, product_path(product) %></p>
-<% end %>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <% @products.each do |product| %>
+      <div class="col">
+        <%= link_to product_path(product), class: "text-decoration-none" do %>
+          <div class="product-image-block mb-2" style="aspect-ratio:1;">
+            <% if product.image.attached? %><%= image_tag product.image %><% end %>
+          </div>
+          <p class="related-name"><%= product.name %></p>
+          <p class="related-price"><%= number_to_currency(product.price) %></p>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
