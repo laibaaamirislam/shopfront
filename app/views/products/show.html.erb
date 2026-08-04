@@ -10,7 +10,7 @@
     </div>
 
     <div class="col-md-6 d-flex flex-column justify-content-center">
-      <p class="eyebrow">Ceramic</p>
+      <p class="eyebrow"><%= @product.category&.name || "Uncategorized" %></p>
       <h1 class="product-title mb-3"><%= @product.name %></h1>
       <p class="product-desc mb-4"><%= @product.description %></p>
       <p class="product-price mb-4"><%= number_to_currency(@product.price) %></p>
