@@ -1,4 +1,6 @@
 class Product < ApplicationRecord
+  belongs_to :category, optional: true 
+
   validates :name, presence: true, length: { minimum: 3 }
   validates :sku, presence: true, uniqueness: true
   validates :price, numericality: { greater_than: 0 }
