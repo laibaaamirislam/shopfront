@@ -11,16 +11,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Playfair+Display:ital,wght@0,500;1,400&display=swap" rel="stylesheet">
   </head>
 
-
   <body>
-
     <nav class="d-flex justify-content-between align-items-center px-4 py-4">
       <%= link_to "Shopfront", root_path, class: "brand-wordmark" %>
-      <div class="d-flex gap-4">
+      <div class="d-flex gap-4 align-items-center">
         <%= link_to "Categories", categories_path, class: "nav-caps" %>
         <%= link_to "Catalog", products_path, class: "nav-caps" %>
         <%= link_to "About", about_path, class: "nav-caps" %>
         <%= link_to "Contact", contact_path, class: "nav-caps" %>
+
+        <% if current_user %>
+          <span class="nav-caps"><%= current_user.email %></span>
+          <%= button_to "Log Out", logout_path, method: :delete, class: "btn btn-outline-editorial btn-sm", form: { style: "display:inline;" } %>
+        <% else %>
+          <%= link_to "Log In", login_path, class: "nav-caps" %>
+          <%= link_to "Sign Up", new_user_path, class: "nav-caps" %>
+        <% end %>
       </div>
     </nav>
 
