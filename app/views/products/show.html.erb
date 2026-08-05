@@ -15,7 +15,7 @@
       <h1 class="product-title mb-3"><%= @product.name %></h1>
       <p class="product-desc mb-4"><%= @product.description %></p>
       <p class="product-price mb-4"><%= number_to_currency(@product.price) %></p>
-      <%= button_to "Add to Cart", "#", class: "btn btn-outline-editorial align-self-start" %>
+      <%= button_to "Add to Cart", cart_items_path(product_id: @product.id), class: "btn btn-outline-editorial align-self-start" %>
     </div>
 
     

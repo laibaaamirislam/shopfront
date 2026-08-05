@@ -13,7 +13,6 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 
-
   resources :categories
   resources :products
 
@@ -27,5 +26,9 @@ Rails.application.routes.draw do
   get "login", to: "sessions#new"
   post "login", to: "sessions#create"
   delete "logout", to: "sessions#destroy"
+
+
+  resources :cart_items, only: [:create, :update, :destroy]
+  resource :cart, only: [:show]
 
 end
