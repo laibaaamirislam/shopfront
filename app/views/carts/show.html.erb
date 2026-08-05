@@ -1,0 +1,30 @@
+<!-- app/views/carts/show.html.erb -->
+<div class="content-card">
+  <h1 class="product-title mb-4">Your Cart</h1>
+
+  <% if @cart_items.empty? %>
+    <p class="product-desc">Your cart is empty. <%= link_to "Browse products", products_path %>.</p>
+  <% else %>
+    <% @cart_items.each do |item| %>
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+          <p class="related-name mb-0"><%= item.product.name %></p>
+          <p class="related-price"><%= number_to_currency(item.product.price) %> each</p>
+        </div>
+
+        <%= form_with model: item, url: cart_item_path(item), method: :patch, local: true, class: "d-flex align-items-center gap-2" do |form| %>
+          <%= form.number_field :quantity, min: 1, value: item.quantity, class: "form-control", style: "width: 70px;" %>
+          <%= form.submit "Update", class: "btn btn-outline-editorial btn-sm" %>
+        <% end %>
+
+        <%= button_to "Remove", cart_item_path(item), method: :delete, class: "btn btn-outline-editorial btn-sm" %>
+      </div>
+    <% end %>
+
+    <p class="product-price mt-4">
+      Total: <%= number_to_currency(@cart_items.sum { |i| i.product.price * i.quantity }) %>
+    </p>
+
+    <%= button_to "Checkout", checkout_path, class: "btn btn-outline-editorial" %>
+  <% end %>
+</div>
