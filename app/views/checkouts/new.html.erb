@@ -1,0 +1,9 @@
+<!-- app/views/checkouts/new.html.erb -->
+<div class="content-card">
+  <h1 class="product-title mb-4">Checkout</h1>
+  <p class="product-desc">Order placement isn't built yet — this is where Order/LineItem creation and payment will go next.</p>
+
+  <% @cart_items.each do |item| %>
+    <p class="related-name"><%= item.product.name %> × <%= item.quantity %></p>
+  <% end %>
+</div>
