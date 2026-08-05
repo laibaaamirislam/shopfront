@@ -3,11 +3,12 @@
   <div class="row g-4 mb-5">
     <div class="col-md-6">
       <div class="product-image-block">
-        <% if @product.respond_to?(:image) && @product.image.attached? %>
-          <%= image_tag @product.image %>
+        <% if @product.image.attached? %>
+          <%= image_tag @product.image, alt: @product.name %>
         <% end %>
       </div>
     </div>
+
 
     <div class="col-md-6 d-flex flex-column justify-content-center">
       <p class="eyebrow"><%= @product.category&.name || "Uncategorized" %></p>
@@ -27,8 +28,8 @@
         <div class="col">
           <%= link_to product_path(related), class: "text-decoration-none" do %>
             <div class="related-thumb <%= i == 0 ? 'variant-light' : (i == 2 ? 'variant-dark' : '') %>">
-              <% if related.respond_to?(:image) && related.image.attached? %>
-                <%= image_tag related.image %>
+              <% if related.image.attached? %>
+                <%= image_tag related.image.variant(resize_to_fill: [300, 300]), alt: related.name %>
               <% end %>
             </div>
             <p class="related-name"><%= related.name %></p>
