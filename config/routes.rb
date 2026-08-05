@@ -16,7 +16,12 @@ Rails.application.routes.draw do
 
   resources :categories
   resources :products
+
   root 'pages#home'
+
   get 'about', to: 'pages#about'
   get 'contact', to: 'pages#contact'
+
+  resources :users, only: [:new, :create]
+  
 end
