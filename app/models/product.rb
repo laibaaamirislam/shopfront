@@ -1,5 +1,7 @@
+
 class Product < ApplicationRecord
-  belongs_to :category, optional: true 
+  belongs_to :category, optional: true
+  has_one_attached :image
 
   validates :name, presence: true, length: { minimum: 3 }
   validates :sku, presence: true, uniqueness: true
