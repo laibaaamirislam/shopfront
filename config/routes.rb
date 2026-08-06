@@ -27,11 +27,12 @@ Rails.application.routes.draw do
   post "login", to: "sessions#create"
   delete "logout", to: "sessions#destroy"
 
-
   resources :cart_items, only: [:create, :update, :destroy]
   resource :cart, only: [:show]
 
   get  "checkout", to: "checkouts#new"
   post "checkout", to: "checkouts#create"
+
+  resources :orders, only: [:index, :show]
   
 end

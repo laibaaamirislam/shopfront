@@ -1,0 +1,13 @@
+<div class="content-card">
+  <h1 class="product-title mb-2">Order #<%= @order.id %></h1>
+  <p class="product-desc mb-4">Placed <%= @order.created_at.strftime("%B %d, %Y") %></p>
+
+  <% @order.line_items.each do |item| %>
+    <div class="d-flex justify-content-between mb-2">
+      <span class="related-name"><%= item.product.name %> × <%= item.quantity %></span>
+      <span class="related-price"><%= number_to_currency(item.price * item.quantity) %></span>
+    </div>
+  <% end %>
+
+  <p class="product-price mt-4">Total: <%= number_to_currency(@order.total_price) %></p>
+</div>
