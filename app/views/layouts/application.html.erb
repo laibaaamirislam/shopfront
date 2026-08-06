@@ -23,7 +23,6 @@
         
 
         <% if current_user %>
-          <span class="nav-caps"><%= current_user.email %></span>
           <%= link_to "My Orders", orders_path, class: "nav-caps" %>
           <%= button_to "Log Out", logout_path, method: :delete, class: "btn btn-outline-editorial btn-sm", form: { style: "display:inline;" } %>
         <% else %>
