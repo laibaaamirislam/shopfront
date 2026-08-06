@@ -9,7 +9,8 @@ class ProductsController < ApplicationController
     end
 
     def index
-        @products = Product.all
+        @products = Product.search(params[:query]).in_category(params[:category_id])
+        @categories = Category.all
     end
 
     def new
