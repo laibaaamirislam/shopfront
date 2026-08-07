@@ -6,6 +6,8 @@
     <div class="d-flex justify-content-between mb-2">
       <span class="related-name"><%= item.product.name %> × <%= item.quantity %></span>
       <span class="related-price"><%= number_to_currency(item.price * item.quantity) %></span>
+      <!-- app/views/orders/show.html.erb -->
+      <p class="eyebrow mb-2"><%= @order.status.titleize %></p>
     </div>
   <% end %>
 
