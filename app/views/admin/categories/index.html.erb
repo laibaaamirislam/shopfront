@@ -1,0 +1,21 @@
+<!-- app/views/admin/categories/index.html.erb -->
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1 class="h3 mb-0">Categories</h1>
+  <%= link_to "+ New Category", new_admin_category_path, class: "btn btn-dark btn-sm" %>
+</div>
+
+<table class="table">
+  <thead><tr><th>Name</th><th>Products</th><th></th></tr></thead>
+  <tbody>
+    <% @categories.each do |category| %>
+      <tr>
+        <td><%= link_to category.name, admin_category_path(category) %></td>
+        <td><%= category.products.count %></td>
+        <td>
+          <%= link_to "Edit", edit_admin_category_path(category), class: "btn btn-sm btn-outline-secondary" %>
+          <%= button_to "Delete", admin_category_path(category), method: :delete, class: "btn btn-sm btn-outline-danger", data: { turbo_confirm: "Delete this category?" }, form: { style: "display:inline;" } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

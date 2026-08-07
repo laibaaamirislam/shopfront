@@ -1,4 +1,4 @@
-# app/controllers/admin/products_controller.rb
+
 module Admin
   class ProductsController < BaseController
     before_action :set_product, only: [:show, :edit, :update, :destroy]

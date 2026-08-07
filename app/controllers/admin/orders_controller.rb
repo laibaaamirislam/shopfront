@@ -1,4 +1,4 @@
-# app/controllers/admin/orders_controller.rb
+
 module Admin
   class OrdersController < BaseController
     def index

@@ -1,0 +1,10 @@
+<!-- app/views/admin/categories/show.html.erb -->
+<h1 class="h3 mb-4"><%= @category.name %></h1>
+<%= link_to "Edit", edit_admin_category_path(@category), class: "btn btn-dark mb-4" %>
+
+<h2 class="h5">Products in this category</h2>
+<ul>
+  <% @products.each do |product| %>
+    <li><%= link_to product.name, admin_product_path(product) %></li>
+  <% end %>
+</ul>
