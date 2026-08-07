@@ -1,0 +1,47 @@
+<!-- app/views/admin/dashboard/index.html.erb -->
+<h1 class="h3 mb-4">Dashboard</h1>
+
+<div class="row g-3 mb-5">
+  <div class="col-md-4">
+    <div class="border rounded p-3">
+      <p class="text-muted small mb-1">Total Revenue</p>
+      <p class="h4 mb-0"><%= number_to_currency(@total_revenue) %></p>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="border rounded p-3">
+      <p class="text-muted small mb-1">Total Orders</p>
+      <p class="h4 mb-0"><%= @order_count %></p>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="border rounded p-3">
+      <p class="text-muted small mb-1">Low Stock Items</p>
+      <p class="h4 mb-0"><%= @low_stock_products.count %></p>
+    </div>
+  </div>
+</div>
+
+<h2 class="h5 mb-3">Recent Orders</h2>
+<table class="table table-sm">
+  <thead><tr><th>Order</th><th>Customer</th><th>Total</th><th>Status</th></tr></thead>
+  <tbody>
+    <% @recent_orders.each do |order| %>
+      <tr>
+        <td><%= link_to "##{order.id}", admin_order_path(order) %></td>
+        <td><%= order.user.email %></td>
+        <td><%= number_to_currency(order.total_price) %></td>
+        <td><span class="badge bg-secondary"><%= order.status %></span></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<% if @low_stock_products.any? %>
+  <h2 class="h5 mb-3 mt-4">Low Stock</h2>
+  <ul>
+    <% @low_stock_products.each do |product| %>
+      <li><%= link_to product.name, admin_product_path(product) %> — <%= product.stock_quantity %> left</li>
+    <% end %>
+  </ul>
+<% end %>
