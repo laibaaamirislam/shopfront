@@ -1,0 +1,26 @@
+<!-- app/views/admin/orders/show.html.erb -->
+<h1 class="h3 mb-2">Order #<%= @order.id %></h1>
+<p class="text-muted mb-4">
+  <%= @order.user.email %> — placed <%= @order.created_at.strftime("%B %d, %Y") %>
+</p>
+
+<table class="table">
+  <thead><tr><th>Product</th><th>Qty</th><th>Price</th><th>Subtotal</th></tr></thead>
+  <tbody>
+    <% @order.line_items.each do |item| %>
+      <tr>
+        <td><%= item.product.name %></td>
+        <td><%= item.quantity %></td>
+        <td><%= number_to_currency(item.price) %></td>
+        <td><%= number_to_currency(item.price * item.quantity) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<p class="h5 mb-4">Total: <%= number_to_currency(@order.total_price) %></p>
+
+<%= form_with url: admin_order_path(@order), method: :patch, local: true, class: "d-flex gap-2" do |form| %>
+  <%= form.select :status, Order::STATUSES.map { |s| [s.titleize, s] }, { selected: @order.status }, { class: "form-select w-auto" } %>
+  <%= form.submit "Update Status", class: "btn btn-dark" %>
+<% end %>
