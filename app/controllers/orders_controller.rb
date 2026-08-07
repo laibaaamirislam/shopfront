@@ -24,4 +24,10 @@ class OrdersController < ApplicationController
       redirect_to admin_orders_path, alert: "Couldn't update order ##{order.id}: #{order.errors.full_messages.to_sentence}"
     end
   end
+
+
+  def admin_index
+    @orders = Order.all
+  end
+
 end

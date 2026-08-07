@@ -32,4 +32,13 @@ class ApplicationController < ActionController::Base
       redirect_to login_path
     end
   end
+
+  private
+
+  def require_admin
+    # Ensure user is logged in first if you have a current_user helper
+    unless current_user&.role == "admin" # or current_user&.admin?
+      redirect_to root_path, alert: "You are not authorized to access this page."
+    end
+  end
 end
