@@ -17,12 +17,11 @@ class OrdersController < ApplicationController
 
   def update_status
     order = Order.find(params[:id])
-    order.update(status: params[:status])
-    redirect_to admin_orders_path, notice: "Order ##{order.id} marked as #{order.status}."
-  end
 
-  def confirmation
-    stripe_session = Stripe::Checkout::Session.retrieve(params[:session_id])
-    # ...unchanged from the payment guide, whenever you resume that...
+    if order.update(status: params[:status])
+      redirect_to admin_orders_path, notice: "Order ##{order.id} marked as #{order.status}."
+    else
+      redirect_to admin_orders_path, alert: "Couldn't update order ##{order.id}: #{order.errors.full_messages.to_sentence}"
+    end
   end
 end

@@ -33,6 +33,7 @@ Rails.application.routes.draw do
   get  "checkout", to: "checkouts#new"
   post "checkout", to: "checkouts#create"
 
+  
   resources :orders, only: [:index, :show]
   get   "admin/orders",         to: "orders#admin_index", as: :admin_orders
   patch "admin/orders/:id",     to: "orders#update_status", as: :admin_order_status
