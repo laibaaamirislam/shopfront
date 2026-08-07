@@ -1,0 +1,19 @@
+<!-- app/views/orders/admin_index.html.erb -->
+<div class="content-card">
+  <h1 class="product-title mb-4">All Orders (Admin)</h1>
+
+  <% @orders.each do |order| %>
+    <div class="d-flex justify-content-between align-items-center mb-3 pb-3 border-bottom">
+      <div>
+        <%= link_to "Order ##{order.id}", order_path(order), class: "related-name text-decoration-none" %>
+        <p class="related-price mb-0"><%= order.user.email %> — <%= number_to_currency(order.total_price) %></p>
+      </div>
+
+      <%= form_with url: admin_order_status_path(order), method: :patch, local: true, class: "d-flex gap-2" do |form| %>
+        <%= form.select :status, Order::STATUSES.map { |s| [s.titleize, s] },
+            { selected: order.status }, { class: "form-select form-select-sm" } %>
+        <%= form.submit "Update", class: "btn btn-outline-editorial btn-sm" %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
