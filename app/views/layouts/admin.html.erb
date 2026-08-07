@@ -1,0 +1,39 @@
+<!-- app/views/layouts/admin.html.erb -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Shopfront Admin</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body class="bg-white">
+    <div class="d-flex" style="min-height: 100vh;">
+      <nav class="bg-dark text-white p-3" style="width: 220px;">
+        <p class="text-white-50 small text-uppercase mb-4" style="letter-spacing: 1px;">Shopfront Admin</p>
+        <ul class="nav flex-column gap-1">
+          <li class="nav-item"><%= link_to "Dashboard", admin_root_path, class: "nav-link text-white" %></li>
+          <li class="nav-item"><%= link_to "Products", admin_products_path, class: "nav-link text-white" %></li>
+          <li class="nav-item"><%= link_to "Categories", admin_categories_path, class: "nav-link text-white" %></li>
+          <li class="nav-item"><%= link_to "Orders", admin_orders_path, class: "nav-link text-white" %></li>
+        </ul>
+        <hr class="border-secondary">
+        <%= link_to "← Back to store", root_path, class: "nav-link text-white-50" %>
+        <%= button_to "Log Out", logout_path, method: :delete, class: "btn btn-link text-white-50 p-0 mt-2", form: { style: "display:inline;" } %>
+      </nav>
+
+      <main class="flex-grow-1 p-4">
+        <% flash.each do |type, message| %>
+          <div class="alert alert-<%= type == 'notice' ? 'success' : 'danger' %> alert-dismissible fade show" role="alert">
+            <%= message %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        <% end %>
+        <%= yield %>
+      </main>
+    </div>
+  </body>
+</html>
