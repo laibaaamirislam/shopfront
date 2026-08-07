@@ -21,7 +21,11 @@
         <%= link_to "About", about_path, class: "nav-caps" %>
         <%= link_to "Contact", contact_path, class: "nav-caps" %>
         <%= link_to "Cart (#{current_cart.cart_items.sum(:quantity)})", cart_path, class: "nav-caps" %>
-        
+
+        <!-- app/views/layouts/application.html.erb -->
+        <% if current_user&.admin? %>
+          <%= link_to "All Orders", admin_orders_path, class: "nav-caps" %>
+        <% end %>     
 
         <% if current_user %>
           <%= link_to "My Orders", orders_path, class: "nav-caps" %>
