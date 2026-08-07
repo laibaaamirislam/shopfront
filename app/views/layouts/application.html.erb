@@ -24,7 +24,7 @@
 
         <!-- app/views/layouts/application.html.erb -->
         <% if current_user&.admin? %>
-          <%= link_to "All Orders", admin_orders_path, class: "nav-caps" %>
+          <%= link_to "Admin Dashboard", admin_root_path, class: "nav-caps" %>
         <% end %>     
 
         <% if current_user %>

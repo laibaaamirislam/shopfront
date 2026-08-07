@@ -33,6 +33,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def require_admin
+    unless current_user&.admin? # Adjust this condition based on your auth setup
+      flash[:alert] = "You are not authorized to access this page."
+      redirect_to root_path
+    end
+  end
+
   private
 
 
