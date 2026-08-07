@@ -33,9 +33,18 @@ Rails.application.routes.draw do
   get  "checkout", to: "checkouts#new"
   post "checkout", to: "checkouts#create"
 
-  
+
   resources :orders, only: [:index, :show]
-  get   "admin/orders",         to: "orders#admin_index", as: :admin_orders
-  patch "admin/orders/:id",     to: "orders#update_status", as: :admin_order_status
-  
+
+  namespace :admin do
+    root to: "dashboard#index"
+    resources :products
+    resources :categories
+    resources :orders, only: [:index, :show, :update]
+  end
+    
+  # config/routes.rb — remove the old ad-hoc admin routes from the previous guide:
+# get   "admin/orders",     to: "orders#admin_index", as: :admin_orders
+# patch "admin/orders/:id", to: "orders#update_status", as: :admin_order_status
+# (already replaced by `resources :orders` inside `namespace :admin` from Step 1)
 end
