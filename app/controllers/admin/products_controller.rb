@@ -5,7 +5,9 @@ module Admin
 
     def index
       @products = Product.includes(:category).order(:name)
+      @categories = Category.all
     end
+
 
     def show
     end
