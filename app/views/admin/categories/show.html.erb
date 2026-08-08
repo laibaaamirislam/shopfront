@@ -1,10 +1,38 @@
-<!-- app/views/admin/categories/show.html.erb -->
-<h1 class="h3 mb-4"><%= @category.name %></h1>
-<%= link_to "Edit", edit_admin_category_path(@category), class: "btn btn-dark mb-4" %>
+<!-- app/views/categories/show.html.erb -->
 
-<h2 class="h5">Products in this category</h2>
-<ul>
-  <% @products.each do |product| %>
-    <li><%= link_to product.name, admin_product_path(product) %></li>
-  <% end %>
-</ul>
+<div class="content-card">
+
+  <div class="d-flex justify-content-between align-items-start mb-4">
+
+    <div>
+      <p class="eyebrow mb-2">Category</p>
+      <h1 class="product-title mb-2"><%= @category.name %></h1>
+    </div>
+
+    <%= link_to "Edit Category",
+                edit_admin_category_path(@category),
+                class: "btn btn-dark btn-sm" %>
+                  
+  </div>
+
+  <hr class="my-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="h5 mb-0">Products in this category</h2>
+  </div>
+
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <% @products.each do |product| %>
+      <div class="col">
+        <%= link_to admin_product_path(product), class: "text-decoration-none" do %>
+          <div class="product-image-block mb-2" style="aspect-ratio:1;">
+            <% if product.image.attached? %><%= image_tag product.image %><% end %>
+          </div>
+          <p class="related-name"><%= product.name %></p>
+          <p class="related-price"><%= number_to_currency(product.price) %></p>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+
