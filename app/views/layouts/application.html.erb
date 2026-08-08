@@ -29,7 +29,6 @@
         <% if current_user %>
           <%= link_to "My Orders", orders_path, class: "nav-caps" %>
           <%= button_to "Log Out", logout_path, method: :delete, class: "btn btn-outline-editorial btn-sm", form: { style: "display:inline;" } %>
-        <
         <% else %>
           <%= link_to "Log In", login_path, class: "nav-caps" %>
           <%= link_to "Sign Up", new_user_path, class: "nav-caps" %>
@@ -53,6 +52,8 @@
         &copy; <%= Date.current.year %> Shopfront. Built while learning Rails.
       </div>
     </footer>
+
+
 
   </body>
 </html>

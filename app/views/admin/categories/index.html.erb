@@ -53,14 +53,16 @@
                             edit_admin_category_path(category),
                             class: "text-secondary text-decoration-none small hover-underline",
                             style: "font-size: 0.85rem; color: #6C757D;" %>
-
                 <%= button_to "Delete",
-                              admin_category_path(category),
-                              method: :delete,
-                              class: "btn btn-link text-danger text-decoration-none small p-0 m-0 border-0 align-baseline",
-                              style: "font-size: 0.85rem; opacity: 0.85;",
-                              data: { turbo_confirm: "Are you sure you want to delete '#{category.name}'?" },
-                              form: { style: "display:inline;" } %>
+                            admin_category_path(category),
+                            method: :delete,
+                            class: "btn btn-link text-danger text-decoration-none small p-0 m-0 border-0 align-baseline",
+                            style: "font-size: 0.85rem; opacity: 0.85;",
+                            form: { 
+                              style: "display:inline;",
+                              onsubmit: "return confirm('Are you sure you want to delete category \"#{category.name}\"?');" 
+                            } %>
+
               </div>
             </td>
 
