@@ -1,21 +1,57 @@
-<!-- app/views/admin/categories/index.html.erb -->
-<div class="d-flex justify-content-between align-items-center mb-4">
-  <h1 class="h3 mb-0">Categories</h1>
-  <%= link_to "+ New Category", new_admin_category_path, class: "btn btn-dark btn-sm" %>
+
+<div class="content-card">
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h1 class="h3 fw-bold mb-1">Categories</h1>
+      <p class="text-muted mb-0">Manage your product categories</p>    
+    </div>
+
+    <%= link_to "+ New Category", new_admin_category_path, class: "btn btn-dark btn-sm" %>
+  </div>
+
+  <table class="table align-middle text-center">
+    <thead>
+      <tr>
+        <th class="text-uppercase small text-muted fw-semibold">Name</th>
+        <th class="text-uppercase small text-muted fw-semibold">Products</th>
+        <th class="text-uppercase small text-muted fw-semibold">Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @categories.each do |category| %>
+        <tr>
+          <td>
+            <%= link_to category.name,
+                        admin_category_path(category),
+                        class: "text-decoration-none related-name" %>
+          </td>
+
+          <td>
+            <span class="badge rounded-pill bg-light text-dark border px-3 py-2">
+              <%= category.products.count %>
+              <%= "product".pluralize(category.products.count) %>
+            </span>
+          </td>
+
+          <td>
+            <%= link_to "Edit",
+                        edit_admin_category_path(category),
+                        class: "btn btn-sm btn-outline-secondary" %>
+
+            <%= button_to "Delete",
+                          admin_category_path(category),
+                          method: :delete,
+                          class: "btn btn-sm btn-outline-danger",
+                          data: { turbo_confirm: "Delete this category?" },
+                          form: { style: "display:inline;" } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
 </div>
 
-<table class="table">
-  <thead><tr><th>Name</th><th>Products</th><th></th></tr></thead>
-  <tbody>
-    <% @categories.each do |category| %>
-      <tr>
-        <td><%= link_to category.name, admin_category_path(category) %></td>
-        <td><%= category.products.count %></td>
-        <td>
-          <%= link_to "Edit", edit_admin_category_path(category), class: "btn btn-sm btn-outline-secondary" %>
-          <%= button_to "Delete", admin_category_path(category), method: :delete, class: "btn btn-sm btn-outline-danger", data: { turbo_confirm: "Delete this category?" }, form: { style: "display:inline;" } %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+

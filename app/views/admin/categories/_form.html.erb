@@ -13,3 +13,17 @@
 
   <%= form.submit class: "btn btn-dark" %>
 <% end %>
+
+<!-- app/views/categories/_form.html.erb -->
+<%= form_with model: category, local: true do |form| %>
+  <% if category.errors.any? %>
+    <div class="alert alert-danger">
+      <%= pluralize(category.errors.count, "error") %> prohibited this category from saving.
+    </div>
+  <% end %>
+  <div class="mb-3">
+    <%= form.label :name, class: "form-label" %>
+    <%= form.text_field :name, class: "form-control" %>
+  </div>
+  <%= form.submit class: "btn btn-outline-editorial" %>
+<% end %>
