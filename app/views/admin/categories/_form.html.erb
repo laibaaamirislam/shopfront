@@ -53,8 +53,7 @@
     <%# Actions %>
     <div class="d-flex align-items-center gap-3">
       <%= form.submit (category.new_record? ? "Create Category" : "Save Changes"), 
-            class: "btn btn-dark rounded-0 px-4 py-2 fs-7 fw-medium", 
-            style: "background-color: #212529; border: none; letter-spacing: 0.02em;" %>
+            class: "btn btn-dark btn-sm rounded-0 px-3" %>
       
       <%= link_to "Cancel", admin_categories_path, 
             class: "text-secondary text-decoration-none small hover-underline", 
