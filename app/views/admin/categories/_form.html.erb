@@ -1,29 +1,65 @@
+
 <!-- app/views/admin/categories/_form.html.erb -->
-<%= form_with model: [:admin, category], local: true do |form| %>
-  <% if category.errors.any? %>
-    <div class="alert alert-danger">
-      <%= pluralize(category.errors.count, "error") %> prohibited this category from saving.
-    </div>
-  <% end %>
-
-  <div class="mb-3">
-    <%= form.label :name, class: "form-label" %>
-    <%= form.text_field :name, class: "form-control" %>
+<div class="content-card p-4 p-md-5" style="background-color: #FAF6F0; border-radius: 4px;">
+  
+  <%# Form Header %>
+  <div class="mb-4">
+    <p class="eyebrow mb-1 text-muted fst-italic" style="font-size: 0.85rem; color: #8A7E72 !important;">
+      <%= category.new_record? ? "New Record" : "Management" %>
+    </p>
+    <h1 class="h3 mb-4">
+      <%= category.new_record? ? "Create Category" : "Edit #{@category.name_was}" %>
+    </h1>
   </div>
 
-  <%= form.submit class: "btn btn-dark" %>
-<% end %>
+  <hr class="my-4" style="border-color: rgba(0, 0, 0, 0.08);">
 
-<!-- app/views/categories/_form.html.erb -->
-<%= form_with model: category, local: true do |form| %>
-  <% if category.errors.any? %>
-    <div class="alert alert-danger">
-      <%= pluralize(category.errors.count, "error") %> prohibited this category from saving.
+  <%= form_with model: [:admin, category], local: true do |form| %>
+
+    <%# Error Alert %>
+    <% if category.errors.any? %>
+      <div class="alert border-0 rounded-0 mb-4 p-3" style="background-color: #FDF2F2; color: #9B1C1C; border-left: 3px solid #F05252 !important;">
+        <p class="fw-semibold mb-1 small"><%= pluralize(category.errors.count, "error") %> prohibited this category from saving:</p>
+        <ul class="mb-0 ps-3 extra-small" style="font-size: 0.825rem;">
+          <% category.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <%# Category Name Field %>
+    <div class="mb-4" style="max-width: 460px;">
+      <%= form.label :name, "Category Name",  class: "form-label d-block text-secondary small fw-normal mb-2"%>
+      <%= form.text_field :name, 
+            class: "form-control rounded-0 px-3 py-2 #{'is-invalid' if category.errors[:name].any?}", 
+            placeholder: "e.g. Bowls, Plates, Vases",
+            style: "background-color: #FFFFFF; border: 1px solid #D8D2C9; color: #2B2621; font-size: 0.95rem;",
+            autofocus: true %>
+      
+      <% if category.errors[:name].any? %>
+        <p class="text-danger mt-1 small mb-0" style="font-size: 0.8rem;">
+          <%= category.errors[:name].first.capitalize %>
+        </p>
+      <% else %>
+        <small class="form-text text-muted d-block mt-1" style="font-size: 0.775rem; color: #8A7E72 !important;">
+          This name will appear in navigation menus and product listings.
+        </small>
+      <% end %>
     </div>
+
+    <hr class="my-4" style="border-color: rgba(0, 0, 0, 0.08);">
+
+    <%# Actions %>
+    <div class="d-flex align-items-center gap-3">
+      <%= form.submit (category.new_record? ? "Create Category" : "Save Changes"), 
+            class: "btn btn-dark rounded-0 px-4 py-2 fs-7 fw-medium", 
+            style: "background-color: #212529; border: none; letter-spacing: 0.02em;" %>
+      
+      <%= link_to "Cancel", admin_categories_path, 
+            class: "text-secondary text-decoration-none small hover-underline", 
+            style: "font-size: 0.85rem; color: #6C757D;" %>
+    </div>
+
   <% end %>
-  <div class="mb-3">
-    <%= form.label :name, class: "form-label" %>
-    <%= form.text_field :name, class: "form-control" %>
-  </div>
-  <%= form.submit class: "btn btn-outline-editorial" %>
-<% end %>
+</div>
