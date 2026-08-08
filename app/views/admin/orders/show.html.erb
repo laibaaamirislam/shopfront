@@ -1,26 +1,75 @@
 <!-- app/views/admin/orders/show.html.erb -->
-<h1 class="h3 mb-2">Order #<%= @order.id %></h1>
-<p class="text-muted mb-4">
-  <%= @order.user.email %> — placed <%= @order.created_at.strftime("%B %d, %Y") %>
-</p>
+<div class="content-card">
 
-<table class="table">
-  <thead><tr><th>Product</th><th>Qty</th><th>Price</th><th>Subtotal</th></tr></thead>
-  <tbody>
-    <% @order.line_items.each do |item| %>
-      <tr>
-        <td><%= item.product.name %></td>
-        <td><%= item.quantity %></td>
-        <td><%= number_to_currency(item.price) %></td>
-        <td><%= number_to_currency(item.price * item.quantity) %></td>
-      </tr>
+  <%# Back Link %>
+  <%= link_to "← Back to Orders", 
+              admin_orders_path, 
+              class: "text-secondary text-decoration-none small hover-underline d-inline-block mb-3", 
+              style: "font-size: 0.85rem; color: #6C757D;" %>
+
+  <%# Header & Order Meta %>
+  <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end gap-3 mb-5 pb-4 border-bottom">
+    <div>
+      <span class="eyebrow text-uppercase text-muted mb-1 d-block" style="font-size: 0.7rem; letter-spacing: 0.12em;">Order Details</span>
+      <h1 class="product-title mb-1 fs-2 fw-medium">Order #<%= @order.id %></h1>
+      <p class="text-secondary small mb-0" style="font-size: 0.85rem;">
+        <%= @order.user.email %> — Placed on <%= @order.created_at.strftime("%B %d, %Y") %>
+      </p>
+    </div>
+
+    <%# Current Status Tag %>
+    <div>
+      <span class="d-inline-flex align-items-center gap-2 px-3 py-2 bg-white border border-light-subtle text-secondary" style="font-size: 0.75rem; letter-spacing: 0.05em;">
+
+        <%= @order.status.to_s.humanize %>
+      </span>
+    </div>
+  </div>
+
+  <%# Order Items Table %>
+  <div class="table-responsive bg-white border border-light-subtle p-4 mb-4">
+    <table class="table align-middle mb-0" style="--bs-table-bg: transparent;">
+      <thead>
+        <tr class="text-muted border-bottom border-dark" style="font-size: 0.68rem; letter-spacing: 0.1em;">
+          <th class="fw-normal text-uppercase pb-3 ps-0">Product</th>
+          <th class="fw-normal text-uppercase pb-3 text-center">Qty</th>
+          <th class="fw-normal text-uppercase pb-3 text-end">Price</th>
+          <th class="fw-normal text-uppercase pb-3 text-end pe-0">Subtotal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @order.line_items.each do |item| %>
+          <tr class="border-bottom border-light-subtle">
+            <td class="py-3 ps-0 fw-medium">
+              <%= link_to item.product.name, admin_product_path(item.product), class: "text-dark text-decoration-none hover-underline" %>
+            </td>
+            <td class="py-3 text-center text-secondary small" style="font-size: 0.85rem;"><%= item.quantity %></td>
+            <td class="py-3 text-end text-secondary small" style="font-size: 0.85rem;"><%= number_to_currency(item.price) %></td>
+            <td class="py-3 text-end small fw-medium pe-0" style="font-size: 0.85rem;"><%= number_to_currency(item.price * item.quantity) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <%# Order Summary Total Row %>
+    <div class="d-flex justify-content-end align-items-baseline gap-3 pt-4 border-top">
+      <span class="nav-caps text-muted" style="font-size: 0.75rem; letter-spacing: 0.1em;">Total Amount:</span>
+      <span class="fs-4 font-serif text-dark fw-normal"><%= number_to_currency(@order.total_price) %></span>
+    </div>
+  </div>
+
+  <%# Update Status Action Section %>
+  <div class="bg-white p-4 border border-light-subtle">
+    <p class="nav-caps text-muted mb-3" style="font-size: 0.7rem; letter-spacing: 0.12em;">Update Fulfillment Status</p>
+    
+    <%= form_with url: admin_order_path(@order), method: :patch, local: true, class: "d-flex flex-wrap gap-2 align-items-center" do |form| %>
+      <%= form.select :status, 
+                      Order::STATUSES.map { |s| [s.titleize, s] }, 
+                      { selected: @order.status }, 
+                      { class: "form-select rounded-0 border-light-subtle w-auto shadow-none", style: "font-size: 0.85rem;" } %>
+      
+      <%= form.submit "Update Status", class: "btn btn-dark btn-sm rounded-0 px-3 py-2 fw-normal" %>
     <% end %>
-  </tbody>
-</table>
+  </div>
 
-<p class="h5 mb-4">Total: <%= number_to_currency(@order.total_price) %></p>
-
-<%= form_with url: admin_order_path(@order), method: :patch, local: true, class: "d-flex gap-2" do |form| %>
-  <%= form.select :status, Order::STATUSES.map { |s| [s.titleize, s] }, { selected: @order.status }, { class: "form-select w-auto" } %>
-  <%= form.submit "Update Status", class: "btn btn-dark" %>
-<% end %>
+</div>

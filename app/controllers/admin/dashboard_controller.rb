@@ -1,3 +1,4 @@
+
 # app/controllers/admin/dashboard_controller.rb
 module Admin
   class DashboardController < BaseController
