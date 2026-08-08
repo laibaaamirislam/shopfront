@@ -1,5 +1,94 @@
+
 <!-- app/views/admin/products/show.html.erb -->
-<h1 class="h3 mb-4"><%= @product.name %></h1>
-<p><%= @product.description %></p>
-<p><%= number_to_currency(@product.price) %> — <%= @product.stock_quantity %> in stock</p>
-<%= link_to "Edit", edit_admin_product_path(@product), class: "btn btn-dark" %>
+<div class="content-card">
+
+  <%# Top Bar: Back Link & Quick Actions %>
+  <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom border-light">
+    <%= link_to "← Back to Products", 
+                admin_products_path, 
+                class: "text-secondary text-decoration-none small hover-underline",
+                style: "font-size: 0.85rem; color: #6C757D;" %>
+
+    <div class="d-inline-flex align-items-center gap-3">
+      <%= link_to "Edit Product", 
+                  edit_admin_product_path(@product), 
+                  class: "btn btn-dark btn-sm rounded-0 px-3" %>
+
+      <%= button_to "Delete", 
+                    admin_product_path(@product), 
+                    method: :delete, 
+                    class: "btn btn-link text-danger text-decoration-none small p-0 m-0 border-0 align-baseline",
+                    style: "font-size: 0.85rem; opacity: 0.85;",
+                    data: { turbo_confirm: "Are you sure you want to delete this product?" },
+                    form: { style: "display:inline;" } %>
+    </div>
+  </div>
+
+  <%# Main Split: Image + Product Identity %>
+  <div class="row g-4 g-lg-5 align-items-start">
+    
+    <%# Left Column: Image (Narrowed to col-md-4 / col-lg-3 with max-width) %>
+    <div class="col-md-4 col-lg-3">
+      <div class="product-image-block" style="max-width: 240px;">
+        <% if @product.image.attached? %>
+          <%= image_tag @product.image, alt: @product.name %>
+        <% else %>
+          <span class="nav-caps text-muted text-uppercase">No Image</span>
+        <% end %>
+      </div>
+    </div>
+
+    <%# Right Column: Details & Stats %>
+    <div class="col-md-8 col-lg-9">
+      
+      <%# Identity Block %>
+      <div class="mb-3">
+        <p class="eyebrow mb-1"><%= @product.category&.name || "Uncategorized" %></p>
+        <h1 class="product-title mb-1"><%= @product.name %></h1>
+        <p class="product-price mb-0"><%= number_to_currency(@product.price) %></p>
+      </div>
+
+      <hr class="my-3" style="border-color: rgba(0, 0, 0, 0.08);">
+
+      <%# Description %>
+      <div class="mb-4">
+        <p class="nav-caps text-uppercase mb-2">Description</p>
+        <p class="product-desc mb-0">
+          <%= @product.description.presence || "No description provided for this product." %>
+        </p>
+      </div>
+
+      <%# Horizontal Metric Strip %>
+      <div class="related-section pt-3">
+        <p class="nav-caps text-uppercase mb-3">Inventory & Performance</p>
+        <div class="d-flex align-items-center gap-4 flex-wrap">
+          
+          <div class="pe-4 border-end border-light">
+            <span class="eyebrow d-block mb-1">Stock</span>
+            <span class="badge rounded-pill fw-normal px-3 py-2 bg-light text-dark border-0">
+              <%= @product.stock_quantity %> available
+            </span>
+          </div>
+
+          <div class="pe-4 border-end border-light">
+            <span class="eyebrow d-block mb-1">Total Sales</span>
+            <p class="related-price mb-0 fw-medium">
+              <%= @product.respond_to?(:sales_count) ? @product.sales_count : (@product.try(:order_items)&.sum(:quantity) || 0) %> units sold
+            </p>
+          </div>
+
+          <div>
+            <span class="eyebrow d-block mb-1">Category</span>
+            <p class="related-name mb-0">
+              <%= @product.category ? link_to(@product.category.name, admin_category_path(@product.category), class: "text-dark text-decoration-underline") : "Unassigned" %>
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
