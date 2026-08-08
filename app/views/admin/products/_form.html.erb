@@ -1,39 +1,129 @@
+
 <!-- app/views/admin/products/_form.html.erb -->
-<%= form_with model: [:admin, product], local: true do |form| %>
-  <% if product.errors.any? %>
-    <div class="alert alert-danger">
-      <%= pluralize(product.errors.count, "error") %> prohibited this product from saving.
-    </div>
-  <% end %>
+<div class="content-card">
 
-  <div class="mb-3">
-    <%= form.label :category_id, "Category", class: "form-label" %>
-    <%= form.collection_select :category_id, Category.all, :id, :name, { prompt: true }, { class: "form-select" } %>
-  </div>
-  <div class="mb-3">
-    <%= form.label :name, class: "form-label" %>
-    <%= form.text_field :name, class: "form-control" %>
-  </div>
-  <div class="mb-3">
-    <%= form.label :description, class: "form-label" %>
-    <%= form.text_area :description, class: "form-control" %>
-  </div>
-  <div class="mb-3">
-    <%= form.label :price, class: "form-label" %>
-    <%= form.number_field :price, step: 0.01, class: "form-control" %>
-  </div>
-  <div class="mb-3">
-    <%= form.label :stock_quantity, class: "form-label" %>
-    <%= form.number_field :stock_quantity, class: "form-control" %>
-  </div>
-  <div class="mb-3">
-    <%= form.label :sku, class: "form-label" %>
-    <%= form.text_field :sku, class: "form-control" %>
-  </div>
-  <div class="mb-3">
-    <%= form.label :image, class: "form-label" %>
-    <%= form.file_field :image, class: "form-control" %>
+  <%# Header Block %>
+  <div class="mb-4">
+    <p class="eyebrow"><%= product.new_record? ? "New Record" : "Management" %></p>
+    <h1 class="product-title mb-0">
+      <%= product.new_record? ? "Create Product" : "Edit #{product.name_was}" %>
+    </h1>
   </div>
 
-  <%= form.submit class: "btn btn-dark" %>
-<% end %>
+  <div class="related-section">
+    <%= form_with model: [:admin, product], local: true do |form| %>
+
+      <%# Error Alert %>
+      <% if product.errors.any? %>
+        <div class="alert alert-danger border-0 rounded-0 mb-4 p-3">
+          <p class="fw-medium mb-1 small"><%= pluralize(product.errors.count, "error") %> prohibited this product from saving:</p>
+          <ul class="mb-0 ps-3 small">
+            <% product.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="row g-3">
+
+        <%# Product Name %>
+        <div class="col-md-8">
+          <%= form.label :name, "Product Name", class: "nav-caps d-block mb-2" %>
+          <%= form.text_field :name, 
+                class: "form-control rounded-0 border-0 bg-white px-3 py-2 #{'is-invalid' if product.errors[:name].any?}", 
+                placeholder: "e.g. Cherry Ceramic Bowl",
+                autofocus: true %>
+          <% if product.errors[:name].any? %>
+            <p class="text-danger mt-1 small mb-0"><%= product.errors[:name].first.capitalize %></p>
+          <% end %>
+        </div>
+
+        <%# Category Select %>
+        <div class="col-md-4">
+          <%= form.label :category_id, "Category", class: "nav-caps d-block mb-2" %>
+          <%= form.collection_select :category_id, Category.all, :id, :name, 
+                { prompt: "Select a category" }, 
+                { class: "form-select rounded-0 border-0 bg-white px-3 py-2 #{'is-invalid' if product.errors[:category_id].any?}" } %>
+          <% if product.errors[:category_id].any? %>
+            <p class="text-danger mt-1 small mb-0"><%= product.errors[:category_id].first.capitalize %></p>
+          <% end %>
+        </div>
+
+        <%# Description %>
+        <div class="col-12">
+          <%= form.label :description, "Description", class: "nav-caps d-block mb-2" %>
+          <%= form.text_area :description, 
+                rows: 4, 
+                class: "form-control rounded-0 border-0 bg-white px-3 py-2 #{'is-invalid' if product.errors[:description].any?}", 
+                placeholder: "Write a brief editorial description..." %>
+          <% if product.errors[:description].any? %>
+            <p class="text-danger mt-1 small mb-0"><%= product.errors[:description].first.capitalize %></p>
+          <% end %>
+        </div>
+
+        <%# Price, Stock, SKU Row %>
+        <div class="col-md-4">
+          <%= form.label :price, "Price ($)", class: "nav-caps d-block mb-2" %>
+          <%= form.number_field :price, 
+                step: 0.01, 
+                class: "form-control rounded-0 border-0 bg-white px-3 py-2 #{'is-invalid' if product.errors[:price].any?}", 
+                placeholder: "0.00" %>
+          <% if product.errors[:price].any? %>
+            <p class="text-danger mt-1 small mb-0"><%= product.errors[:price].first.capitalize %></p>
+          <% end %>
+        </div>
+
+        <div class="col-md-4">
+          <%= form.label :stock_quantity, "Stock Quantity", class: "nav-caps d-block mb-2" %>
+          <%= form.number_field :stock_quantity, 
+                class: "form-control rounded-0 border-0 bg-white px-3 py-2 #{'is-invalid' if product.errors[:stock_quantity].any?}", 
+                placeholder: "0" %>
+          <% if product.errors[:stock_quantity].any? %>
+            <p class="text-danger mt-1 small mb-0"><%= product.errors[:stock_quantity].first.capitalize %></p>
+          <% end %>
+        </div>
+
+        <div class="col-md-4">
+          <%= form.label :sku, "SKU", class: "nav-caps d-block mb-2" %>
+          <%= form.text_field :sku, 
+                class: "form-control rounded-0 border-0 bg-white px-3 py-2 #{'is-invalid' if product.errors[:sku].any?}", 
+                placeholder: "e.g. CHR-BWL-01" %>
+          <% if product.errors[:sku].any? %>
+            <p class="text-danger mt-1 small mb-0"><%= product.errors[:sku].first.capitalize %></p>
+          <% end %>
+        </div>
+
+        <%# Image Upload & Thumbnail Preview %>
+        <div class="col-12">
+          <%= form.label :image, "Product Image", class: "nav-caps d-block mb-2" %>
+          
+          <% if product.image.attached? %>
+            <div class="d-flex align-items-center gap-3 mb-2">
+              <div class="related-thumb m-0" style="width: 48px; height: 48px; flex-shrink: 0;">
+                <%= image_tag product.image, alt: product.name %>
+              </div>
+              <span class="eyebrow mb-0">Current image attached. Choose a file below to replace it.</span>
+            </div>
+          <% end %>
+
+          <%= form.file_field :image, class: "form-control rounded-0 border-0 bg-white px-3 py-2" %>
+        </div>
+
+      </div>
+
+      <%# Action Buttons %>
+      <div class="d-flex align-items-center gap-3 pt-4 mt-2">
+        <%= form.submit (product.new_record? ? "Create Product" : "Save Changes"), 
+              class: "btn btn-dark btn-sm rounded-0 px-4 py-2" %>
+        
+        <%= link_to "Cancel", 
+              admin_products_path, 
+              class: "text-secondary text-decoration-none small hover-underline",
+              style: "font-size: 0.85rem; color: #6C757D;" %>
+      </div>
+
+    <% end %>
+  </div>
+
+</div>
