@@ -8,11 +8,17 @@ class SessionsController < ApplicationController
 
     if user&.authenticate(params[:password])
       session[:user_id] = user.id
-      flash[:notice] = "Logged in successfully."
-      redirect_to root_path
+
+      if user.admin?
+        # Redirect admins to the admin dashboard
+        redirect_to admin_root_path, notice: "Signed in as Administrator."
+      else
+        # Redirect customers straight to the Catalog
+        redirect_to products_path, notice: "Logged in successfully."
+      end
     else
       flash.now[:alert] = "Invalid email or password."
-      render "new"
+      render :new, status: :unprocessable_entity
     end
   end
 
