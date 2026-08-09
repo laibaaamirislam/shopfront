@@ -1,23 +1,39 @@
-<!-- app/views/admin/products/index.html.erb -->
-<div class="d-flex justify-content-between align-items-center mb-4">
-  <h1 class="h3 mb-0">Products</h1>
-  <%= link_to "+ New Product", new_admin_product_path, class: "btn btn-dark btn-sm" %>
-</div>
 
-<table class="table">
-  <thead><tr><th>Name</th><th>Category</th><th>Price</th><th>Stock</th><th></th></tr></thead>
-  <tbody>
+<div class="content-card">
+  <h1 class="h4 mb-2">All Products</h1>
+
+  <%= form_with url: products_path, method: :get, local: true, class: "row g-2 mb-4" do |form| %>
+    <div class="col-md-6">
+      <%= form.text_field :query, value: params[:query], placeholder: "Search products...", class: "form-control" %>
+    </div>
+    <div class="col-md-4">
+      <%= form.select :category_id, @categories.map { |c| [c.name, c.id] },
+          { include_blank: "All categories", selected: params[:category_id] },
+          { class: "form-select" } %>
+    </div>
+    <div class="col-md-4">
+      <%= form.submit "Filter", class: "btn btn-outline-editorial w-100" %>
+    </div>
+  <% end %>
+
+  <div class="row row-cols-1 row-cols-md-3 g-4">
     <% @products.each do |product| %>
-      <tr>
-        <td><%= link_to product.name, admin_product_path(product) %></td>
-        <td><%= product.category&.name %></td>
-        <td><%= number_to_currency(product.price) %></td>
-        <td><%= product.stock_quantity %></td>
-        <td>
-          <%= link_to "Edit", edit_admin_product_path(product), class: "btn btn-sm btn-outline-secondary" %>
-          <%= button_to "Delete", admin_product_path(product), method: :delete, class: "btn btn-sm btn-outline-danger", data: { turbo_confirm: "Delete this product?" }, form: { style: "display:inline;" } %>
-        </td>
-      </tr>
+      <div class="col">
+        <%= link_to product_path(product), class: "text-decoration-none" do %>
+          <div class="product-image-block mb-2" style="aspect-ratio:1;">
+            <% if product.image.attached? %>
+              <%= image_tag product.image.variant(resize_to_fill: [400, 400]), alt: product.name %>
+            <% end %>
+          </div>
+          <p class="related-name"><%= product.name %></p>
+          <p class="eyebrow" style="margin-bottom:0;"><%= product.category&.name %></p>
+          <p class="related-price"><%= number_to_currency(product.price) %></p>
+        <% end %>
+      </div>
     <% end %>
-  </tbody>
-</table>
+  </div>
+
+  <% if @products.empty? %>
+    <p class="product-desc mt-4">No products match your search.</p>
+  <% end %>
+</div>

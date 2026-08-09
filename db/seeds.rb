@@ -17,9 +17,27 @@ if Rails.env.production?
   raise "Refusing to run destructive seeds in production. Remove this guard if you really mean to."
 end
 
-puts "Clearing existing products and categories..."
-Product.destroy_all
-Category.destroy_all
+# db/seeds.rb
+
+puts "Seeding users..."
+
+# Creates the admin if missing, or updates credentials if present
+admin = User.find_or_initialize_by(email: "thisislaibaamir@gmail.com")
+admin.assign_attributes(
+  password: "password123",
+  role: "admin"
+)
+admin.save!
+
+# Creates the customer if missing, or updates credentials if present
+customer = User.find_or_initialize_by(email: "amirlaiba546@gmail.com")
+customer.assign_attributes(
+  password: "password123",
+  role: "customer"
+)
+customer.save!
+
+puts "Done! Seeded Admin (#{admin.email}) and Customer (#{customer.email})."
 
 categories = {
   "Earrings"   => Category.find_or_create_by!(name: "Earrings"),

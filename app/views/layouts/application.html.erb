@@ -1,3 +1,4 @@
+<!-- app/views/layouts/application.html.erb -->
 <!DOCTYPE html>
 <html>
   <head>
@@ -11,49 +12,66 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Playfair+Display:ital,wght@0,500;1,400&display=swap" rel="stylesheet">
   </head>
 
-  <body>
+  <body class="bg-white">
 
-    <nav class="d-flex justify-content-between align-items-center px-4 py-4">
-      <%= link_to "Shopfront", root_path, class: "brand-wordmark" %>
-      <div class="d-flex gap-4 align-items-center">
-        <%= link_to "Categories", categories_path, class: "nav-caps" %>
-        <%= link_to "Catalog", products_path, class: "nav-caps" %>
-        <%= link_to "About", about_path, class: "nav-caps" %>
-        <%= link_to "Contact", contact_path, class: "nav-caps" %>
-        <%= link_to "Cart (#{current_cart.cart_items.sum(:quantity)})", cart_path, class: "nav-caps" %>
+    <%# Editorial Navigation Bar %>
+    <header class="border-bottom border-light-subtle mb-4">
+      <nav class="container d-flex justify-content-between align-items-center py-4">
+        
+        <%# Brand Wordmark %>
+        <%= link_to "Shopfront", root_path, class: "brand-wordmark fs-3 text-dark text-decoration-none fw-medium" %>
 
-        <% if current_user&.admin? %>
-          <%= link_to "Admin Dashboard", admin_root_path, class: "nav-caps" %>
-        <% end %>  
+        <div class="d-flex gap-4 align-items-center">
 
-        <% if current_user %>
-          <%= link_to "My Orders", orders_path, class: "nav-caps" %>
-          <%= button_to "Log Out", logout_path, method: :delete, class: "btn btn-outline-editorial btn-sm", form: { style: "display:inline;" } %>
-        <% else %>
-          <%= link_to "Log In", login_path, class: "nav-caps" %>
-          <%= link_to "Sign Up", new_user_path, class: "nav-caps" %>
-        <% end %>
-      </div>
-    </nav>
+          <% if current_user&.admin? %>
+            <%# ADMIN NAVBAR: Only About, Contact, Admin Panel, Log Out %>
+            <%= link_to "Admin Panel", admin_root_path, class: "btn btn-dark btn-sm rounded-0 px-3 py-1 fw-normal ms-2" %>
+            <%= button_to "Log Out", logout_path, method: :delete, class: "btn btn-outline-dark btn-sm rounded-0 px-2 py-1 fw-normal ms-1", form: { style: "display:inline;" } %>
 
+          <% elsif current_user %>
+            <%# LOGGED-IN CUSTOMER NAVBAR %>
+            <%= link_to "Catalog", products_path, class: "nav-caps text-secondary text-decoration-none hover-underline" %>
+            <%= link_to "About", about_path, class: "nav-caps text-secondary text-decoration-none hover-underline" %>
+            <%= link_to "Contact", contact_path, class: "nav-caps text-secondary text-decoration-none hover-underline" %>
+            <%= link_to "Cart (#{current_cart.cart_items.sum(:quantity)})", cart_path, class: "nav-caps text-dark text-decoration-none fw-medium" %>
+            <%= link_to "My Orders", orders_path, class: "nav-caps text-secondary text-decoration-none hover-underline" %>
+            <%= button_to "Log Out", logout_path, method: :delete, class: "btn btn-outline-dark btn-sm rounded-0 px-2 py-1 fw-normal ms-1", form: { style: "display:inline;" } %>
+
+          <% else %>
+            <%# GUEST NAVBAR %>
+            <%= link_to "Catalog", products_path, class: "nav-caps text-secondary text-decoration-none hover-underline" %>
+            <%= link_to "About", about_path, class: "nav-caps text-secondary text-decoration-none hover-underline" %>
+            <%= link_to "Contact", contact_path, class: "nav-caps text-secondary text-decoration-none hover-underline" %>
+            <%= link_to "Cart (#{current_cart.cart_items.sum(:quantity)})", cart_path, class: "nav-caps text-dark text-decoration-none fw-medium" %>
+            
+            <span class="text-light-subtle">|</span>
+            
+            <%= link_to "Sign In / Sign Up", login_path, class: "nav-caps text-secondary text-decoration-none hover-underline" %>
+            <%= link_to "Admin Login", login_path, class: "btn btn-outline-dark btn-sm rounded-0 px-2 py-1 fw-normal ms-1" %>
+          <% end %>
+
+        </div>
+      </nav>
+    </header>
+
+    <%# Main Container %>
     <div class="container mb-5">
       <% flash.each do |type, message| %>
-        <div class="alert alert-<%= type == 'notice' ? 'success' : 'danger' %> alert-dismissible fade show" role="alert">
-          <%= message %>
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <div class="alert <%= type == 'notice' ? 'bg-dark text-white' : 'bg-danger text-white' %> rounded-0 border-0 shadow-sm d-flex justify-content-between align-items-center mb-4 px-4 py-3" style="font-size: 0.85rem;" role="alert">
+          <span><%= message %></span>
+          <button type="button" class="btn-close btn-close-white ms-3" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
       <% end %>
 
       <%= yield %>
     </div>
 
-    <footer class="bg-light text-center text-muted py-4 mt-5">
-      <div class="container">
+    <%# Footer %>
+    <footer class="border-top border-light-subtle py-4 mt-5">
+      <div class="container text-center text-secondary small">
         &copy; <%= Date.current.year %> Shopfront. Built while learning Rails.
       </div>
     </footer>
-
-
 
   </body>
 </html>
