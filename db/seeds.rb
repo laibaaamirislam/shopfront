@@ -23,13 +23,13 @@ puts "Seeding users..."
 
 # Creates the admin if missing, or updates credentials if present
 # db/seeds.rb
-User.find_or_create_by!(email: "thisislaibaamir@gmail.com") do |u|
+admin = User.find_or_create_by!(email: "thisislaibaamir@gmail.com") do |u|
   u.username = "admin"
   u.password = "password123"
   u.role = "admin"
 end
 
-User.find_or_create_by!(email: "amirlaiba546@gmail.com") do |u|
+customer = User.find_or_create_by!(email: "amirlaiba546@gmail.com") do |u|
   u.username = "laiba"
   u.password = "password123"
   u.role = "customer"
