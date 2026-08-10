@@ -22,20 +22,18 @@ end
 puts "Seeding users..."
 
 # Creates the admin if missing, or updates credentials if present
-admin = User.find_or_initialize_by(email: "thisislaibaamir@gmail.com")
-admin.assign_attributes(
-  password: "password123",
-  role: "admin"
-)
-admin.save!
+# db/seeds.rb
+User.find_or_create_by!(email: "thisislaibaamir@gmail.com") do |u|
+  u.username = "admin"
+  u.password = "password123"
+  u.role = "admin"
+end
 
-# Creates the customer if missing, or updates credentials if present
-customer = User.find_or_initialize_by(email: "amirlaiba546@gmail.com")
-customer.assign_attributes(
-  password: "password123",
-  role: "customer"
-)
-customer.save!
+User.find_or_create_by!(email: "amirlaiba546@gmail.com") do |u|
+  u.username = "laiba"
+  u.password = "password123"
+  u.role = "customer"
+end
 
 puts "Done! Seeded Admin (#{admin.email}) and Customer (#{customer.email})."
 
