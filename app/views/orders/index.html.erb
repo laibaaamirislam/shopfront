@@ -1,14 +1,1 @@
-<div class="content-card">
-  <h1 class="product-title mb-4">Your Orders</h1>
-
-  <% if @orders.empty? %>
-    <p class="product-desc">No orders yet. <%= link_to "Start shopping", products_path %>.</p>
-  <% else %>
-    <% @orders.each do |order| %>
-      <div class="d-flex justify-content-between mb-3">
-        <%= link_to "Order ##{order.id} — #{order.created_at.strftime('%b %d, %Y')}", order_path(order), class: "related-name text-decoration-none" %>
-        <span class="related-price"><%= number_to_currency(order.total_price) %></span>
-      </div>
-    <% end %>
-  <% end %>
-</div>
+<%= render 'index' %>
