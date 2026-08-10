@@ -1,4 +1,7 @@
+
 class UsersController < ApplicationController
+  before_action :require_login, only: [:edit, :update]
+
   def new
     @user = User.new
   end
@@ -14,9 +17,26 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit
+    @user = current_user
+  end
+
+  def update
+    if current_user.update(account_params)
+      flash[:notice] = "Account updated."
+      redirect_to account_path
+    else
+      render :edit
+    end
+  end
+
   private
 
   def user_params
+    params.require(:user).permit(:username, :email, :password, :password_confirmation)
+  end
+
+  def account_params
     params.require(:user).permit(:username, :email, :password, :password_confirmation)
   end
 end

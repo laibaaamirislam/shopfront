@@ -33,6 +33,8 @@ Rails.application.routes.draw do
   get  "checkout", to: "checkouts#new"
   post "checkout", to: "checkouts#create"
 
+  get   "account", to: "users#edit"
+  patch "account", to: "users#update"
 
   resources :orders, only: [:index, :show]
 
