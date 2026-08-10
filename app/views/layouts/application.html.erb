@@ -27,7 +27,6 @@
             <%# ADMIN NAVBAR %>
             <%= link_to "Admin Panel", admin_root_path, class: "btn btn-dark btn-sm rounded-0 px-3 py-1 fw-normal ms-2" %>
             <%= button_to "Log Out", logout_path, method: :delete, class: "btn btn-outline-dark btn-sm rounded-0 px-2 py-1 fw-normal ms-1", form: { style: "display:inline;" } %>
-            <%= link_to "My Account", account_path, class: "nav-caps" %>
 
           <% elsif current_user %>
             <%# LOGGED-IN CUSTOMER NAVBAR: About, Contact, Cart, My Orders, Log Out %>
