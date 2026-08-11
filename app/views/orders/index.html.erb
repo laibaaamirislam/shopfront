@@ -1,1 +1,13 @@
-<%= render 'index' %>
+<%= render 'index' %><!-- app/views/orders/index.html.erb -->
+<div class="content-card">
+  <h1 class="product-title mb-4">Your Orders</h1>
+
+  <% if @orders.empty? %>
+    <p class="product-desc">No orders yet. <%= link_to "Start shopping", products_path %>.</p>
+  <% else %>
+    <div class="d-flex flex-column gap-3">
+      <%# Rails automatically renders _order.html.erb for each item in @orders %>
+      <%= render @orders %>
+    </div>
+  <% end %>
+</div>
