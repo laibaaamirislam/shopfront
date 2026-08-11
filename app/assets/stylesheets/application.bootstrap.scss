@@ -19,6 +19,8 @@ $headings-font-family:   "Playfair Display", serif;
 $headings-font-weight:   500;
 
 
-@import "custom";
+
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
+
+@import "custom";

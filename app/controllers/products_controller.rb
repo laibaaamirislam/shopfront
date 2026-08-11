@@ -10,7 +10,7 @@ class ProductsController < ApplicationController
 
     def index
         @products = Product.search(params[:query]).in_category(params[:category_id])
-                     .paginate(page: params[:page], per_page: 9)
+                     .paginate(page: params[:page], per_page: 6)
 
         @categories = Category.all
     end
