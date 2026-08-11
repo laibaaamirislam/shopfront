@@ -4,43 +4,26 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def require_login
-    unless current_user
-      session[:return_to] = request.fullpath
-      flash[:alert] = "Please log in to continue."
-      redirect_to login_path
-    end
-  end
-
   def current_user
-    @current_user ||= User.find_by(id: session[:user_id])
+    @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
   end
 
   def current_cart
-    @current_cart ||= Cart.find_by(id: session[:cart_id]) || create_cart
-  end
+    if current_user
+      # Always return or create the ONE official cart for this user
+      @current_cart ||= current_user.cart || current_user.create_cart
+    else
+      # Guest user handling
+      if session[:cart_id]
+        @current_cart ||= Cart.find_by(id: session[:cart_id])
+      end
 
-  def create_cart
-    cart = Cart.create
-    session[:cart_id] = cart.id
-    cart
-  end
+      if @current_cart.nil?
+        @current_cart = Cart.create
+        session[:cart_id] = @current_cart.id
+      end
 
-  def require_login
-    unless current_user
-      flash[:alert] = "Please log in to continue."
-      redirect_to login_path
+      @current_cart
     end
   end
-
-  def require_admin
-    unless current_user&.admin? # Adjust this condition based on your auth setup
-      flash[:alert] = "You are not authorized to access this page."
-      redirect_to root_path
-    end
-  end
-
-  private
-
-
 end

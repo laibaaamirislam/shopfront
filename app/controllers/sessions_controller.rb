@@ -1,18 +1,27 @@
-# app/controllers/sessions_controller.rb
-class SessionsController < ApplicationController
-  def new
-  end
 
+class SessionsController < ApplicationController
   def create
     user = User.find_by(email: params[:email])
 
     if user&.authenticate(params[:password])
       session[:user_id] = user.id
 
+      # Handle temporary guest cart created before logging in
       if session[:cart_id] && (guest_cart = Cart.find_by(id: session[:cart_id]))
-        if user.cart.nil? && guest_cart.cart_items.any?
-          guest_cart.update(user: user)
+        user_cart = user.cart || user.create_cart
+
+        # Transfer items from guest cart to user's permanent cart
+        guest_cart.cart_items.each do |item|
+          existing_item = user_cart.cart_items.find_by(product_id: item.product_id)
+          if existing_item
+            existing_item.update(quantity: existing_item.quantity + item.quantity)
+          else
+            item.update(cart: user_cart)
+          end
         end
+
+        # Destroy the temporary guest cart & clear session
+        guest_cart.destroy
         session.delete(:cart_id)
       end
 
@@ -29,7 +38,7 @@ class SessionsController < ApplicationController
 
   def destroy
     session.delete(:user_id)
-    session.delete(:cart_id) # Wipes the cart session on logout
+    session.delete(:cart_id)
     flash[:notice] = "Logged out."
     redirect_to root_path
   end
