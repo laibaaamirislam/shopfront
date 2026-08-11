@@ -10,7 +10,6 @@ class ApplicationController < ActionController::Base
 
   def current_cart
     if current_user
-      # Always return or create the ONE official cart for this user
       @current_cart ||= current_user.cart || current_user.create_cart
     else
       # Guest user handling
