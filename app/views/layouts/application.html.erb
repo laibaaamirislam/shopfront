@@ -30,12 +30,34 @@
 
           <% elsif current_user %>
             <%# LOGGED-IN CUSTOMER NAVBAR: About, Contact, Cart, My Orders, Log Out %>
-            <%= link_to "About", about_path, class: "nav-caps text-secondary text-decoration-none hover-underline" %>
-            <%= link_to "Contact", contact_path, class: "nav-caps text-secondary text-decoration-none hover-underline" %>
+            <%= link_to "Catalog", products_path, class: "nav-caps text-secondary text-decoration-none hover-underline" %>
             <%= link_to "Cart (#{current_cart.cart_items.sum(:quantity)})", cart_path, class: "nav-caps text-dark text-decoration-none fw-medium" %>
             <%= link_to "My Orders", orders_path, class: "nav-caps text-secondary text-decoration-none hover-underline" %>
             <%= button_to "Log Out", logout_path, method: :delete, class: "btn btn-outline-dark btn-sm rounded-0 px-2 py-1 fw-normal ms-1", form: { style: "display:inline;" } %>
-            <%= link_to "My Account", account_path, class: "nav-caps" %>
+            <%= link_to "My Account", user_path(current_user), class: "nav-caps" %>
+
+  <div class="dropdown">
+    <button class="btn btn-outline-dark btn-sm rounded-0 px-2 py-1 fw-normal ms-1 dropdown-toggle"
+            type="button" data-bs-toggle="dropdown" aria-expanded="false">
+      &#9776;
+    </button>
+    <ul class="dropdown-menu dropdown-menu-end">
+      <li><h6 class="dropdown-header"><%= current_user.email %></h6></li>
+      <li><%= link_to "My Profile", user_path(current_user), class: "dropdown-item" %></li>
+      <li><%= link_to "Edit Profile", edit_user_path(current_user), class: "dropdown-item" %></li>
+      <li><hr class="dropdown-divider"></li>
+      <li>
+        <%= button_to "Log Out", logout_path, method: :delete,
+            class: "dropdown-item", form: { style: "margin:0;" } %>
+      </li>
+      <li>
+        <%= button_to "Delete Account", user_path(current_user), method: :delete,
+            class: "dropdown-item text-danger",
+            data: { turbo_confirm: "Delete your account? This cannot be undone." },
+            form: { style: "margin:0;" } %>
+      </li>
+    </ul>
+  </div>
 
           <% else %>
             <%# GUEST NAVBAR %>

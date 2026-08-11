@@ -1,6 +1,6 @@
 
 class UsersController < ApplicationController
-  before_action :require_login, only: [:edit, :update, :show]
+  before_action :require_login, only: [:edit, :update, :show, :destroy]
 
   def new
     @user = User.new
@@ -29,9 +29,22 @@ class UsersController < ApplicationController
   def update
     if current_user.update(account_params)
       flash[:notice] = "Account updated."
-      redirect_to account_path
+      redirect_to user_path
     else
       render :edit
+    end
+  end
+
+  def destroy
+    user = current_user
+    reset_session
+    
+    if user.destroy
+      flash[:notice] = "Your account has been permanently deleted."
+      redirect_to root_path, status: :see_other
+    else
+      flash[:alert] = "Something went wrong. Could not delete account."
+      redirect_to user_path(user)
     end
   end
 

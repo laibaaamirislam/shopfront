@@ -21,8 +21,7 @@ Rails.application.routes.draw do
   get 'about', to: 'pages#about'
   get 'contact', to: 'pages#contact'
 
-  resources :users, only: [:new, :create, :show]
-
+  resources :users
   get "login", to: "sessions#new"
   post "login", to: "sessions#create"
   delete "logout", to: "sessions#destroy"
@@ -33,8 +32,6 @@ Rails.application.routes.draw do
   get  "checkout", to: "checkouts#new"
   post "checkout", to: "checkouts#create"
 
-  get   "account", to: "users#edit"
-  patch "account", to: "users#update"
 
 
   resources :orders, only: [:index, :show]
