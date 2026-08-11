@@ -1,9 +1,42 @@
-<h1 class="text-center mt-4"><%= @user.username %>'s profile</h1>
+<!-- app/views/users/show.html.erb -->
+<div class="row justify-content-center my-5">
+  <div class="col-md-8 text-center mb-5">
+    
+    <%# Centered Gravatar Avatar %>
+    <div class="mb-3 d-flex justify-content-center">
+      <%= gravatar_for @user, size: 150 %>
+    </div>
 
-<%= gravatar_for @user, size: 200 %>
+    <h1 class="fw-medium mb-1"><%= @user.username %>'s Profile</h1>
+    <p class="text-secondary small mb-3">Email: <%= @user.email %></p>
+    
+    <span class="badge bg-dark rounded-0 px-3 py-2 mb-3">
+      <%= @user.role.titleize %>
+    </span>
 
-<div class="mb-3">
-    <h2 class="text-center mt-4"> Email: <%= @user.email %></h1>
+    <% if current_user == @user %>
+      <div class="mt-2">
+        <%= link_to "Edit Account", account_path, class: "btn btn-outline-dark btn-sm rounded-0 px-3" %>
+      </div>
+    <% end %>
+
+  </div>
+
+  <%# Orders Section %>
+  <div class="col-md-8">
+    <div class="card rounded-0 border-dark-subtle p-4 shadow-sm">
+      <h3 class="fw-medium mb-4 pb-2 border-bottom">Your Orders</h3>
+
+      <% if @orders.blank? %>
+        <p class="text-secondary mb-0">
+          No orders yet. <%= link_to "Start shopping", products_path, class: "text-dark fw-medium" %>.
+        </p>
+      <% else %>
+        <div class="d-flex flex-column gap-3">
+          <%# Rails automatically renders app/views/orders/_order.html.erb for each item %>
+          <%= render @orders %>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>
-
-<%= render 'orders/index' %>

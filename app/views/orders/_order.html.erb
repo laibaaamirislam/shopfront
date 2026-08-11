@@ -1,0 +1,5 @@
+<!-- app/views/orders/_order.html.erb -->
+<div class="d-flex justify-content-between align-items-center border-bottom pb-2">
+  <%= link_to "Order ##{order.id} — #{order.created_at.strftime('%b %d, %Y')}", order_path(order), class: "text-dark text-decoration-none fw-medium" %>
+  <span class="fw-bold"><%= number_to_currency(order.total_price) %></span>
+</div>
