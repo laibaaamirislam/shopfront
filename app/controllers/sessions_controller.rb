@@ -1,6 +1,6 @@
+# app/controllers/sessions_controller.rb
 class SessionsController < ApplicationController
   def new
-
   end
 
   def create
@@ -9,11 +9,16 @@ class SessionsController < ApplicationController
     if user&.authenticate(params[:password])
       session[:user_id] = user.id
 
+      if session[:cart_id] && (guest_cart = Cart.find_by(id: session[:cart_id]))
+        if user.cart.nil? && guest_cart.cart_items.any?
+          guest_cart.update(user: user)
+        end
+        session.delete(:cart_id)
+      end
+
       if user.admin?
-        # Redirect admins to the admin dashboard
         redirect_to admin_root_path, notice: "Signed in as Administrator."
       else
-        # Redirect customers straight to the Catalog
         redirect_to products_path, notice: "Logged in successfully."
       end
     else
@@ -23,9 +28,9 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    session[:user_id] = nil
+    session.delete(:user_id)
+    session.delete(:cart_id) # Wipes the cart session on logout
     flash[:notice] = "Logged out."
     redirect_to root_path
   end
-
 end
