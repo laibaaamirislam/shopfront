@@ -25,4 +25,19 @@ class ApplicationController < ActionController::Base
       @current_cart
     end
   end
+
+  def require_login
+    unless current_user
+      session[:return_to] = request.fullpath
+      flash[:alert] = "Please log in to continue."
+      redirect_to login_path
+    end
+  end
+
+  def require_admin
+    unless current_user&.admin?
+      flash[:alert] = "You are not authorized to access this page."
+      redirect_to root_path
+    end
+  end
 end
