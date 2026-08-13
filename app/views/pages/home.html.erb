@@ -1,5 +1,5 @@
 <!-- app/views/home/index.html.erb -->
-<div class="content-card py-2">
+<div class="jumbotron-card mb-5">
 
   <% if current_user&.admin? %>
     <%# ADMIN HOME VIEW %>
@@ -25,79 +25,29 @@
     </div>
 
   <% else %>
-    <%# CUSTOMER & GUEST HOME VIEW %>
-    <div class="p-5 mb-5 bg-white border border-light-subtle text-center position-relative overflow-hidden" style="background-color: #FBF9F7 !important;">
-      <div class="py-4 mx-auto" style="max-width: 720px;">
-        <span class="eyebrow text-uppercase text-muted d-block mb-3" style="font-size: 0.7rem; letter-spacing: 0.18em;">
-          Handcrafted Porcelain & Stoneware
+    <%# CUSTOMER & GUEST JUMBOTRON HERO %>
+    <div class="content-card jumbotron-editorial text-center mb-5">
+      <div class="py-4 mx-auto" style="max-width: 680px;">
+        <span class="eyebrow d-block text-uppercase mb-2">
+          Where Handmade Meets Colour & Clay
         </span>
 
-        <h1 class="display-4 font-serif text-dark fw-normal mb-3">
-          Objects of Permanence & Grace
+        <h1 class="jumbotron-title mb-3">
+          Your Claymania
         </h1>
 
-        <p class="lead text-secondary mb-4 font-serif italic fs-5 fw-normal" style="line-height: 1.6; font-size: 1.1rem;">
-          Tactile ceramic jewelry, hand-formed cutlery, and functional tableware — modern heirloom pieces crafted in small batches for daily rituals.
+        <p class="jumbotron-desc mb-4">
+          Discover thoughtfully crafted jewellery, ceramics, and home décor 
+          made to bring colour, character, and joy to your everyday spaces.
         </p>
 
-        <div class="d-flex flex-column flex-sm-row justify-content-center gap-3 pt-2">
-          <%= link_to "Explore Catalog", products_path, class: "btn btn-dark rounded-0 px-4 py-3 fw-normal text-uppercase", style: "font-size: 0.75rem; letter-spacing: 0.12em;" %>
-          <%= link_to "Our Story", about_path, class: "btn btn-outline-dark rounded-0 px-4 py-3 fw-normal text-uppercase", style: "font-size: 0.75rem; letter-spacing: 0.12em;" %>
+        <div class="d-flex flex-column flex-sm-row justify-content-center gap-3">
+          <%= link_to "Explore Catalog", products_path, class: "btn btn-outline-editorial" %>
+          <%= link_to "Our Story", about_path, class: "btn btn-outline-editorial" %>
         </div>
       </div>
     </div>
 
-    <%# Editorial Category Highlights %>
-    <div class="row g-4 mb-5">
-      <div class="col-md-4">
-        <div class="p-4 border border-light-subtle bg-white h-100 d-flex flex-column justify-content-between">
-          <div>
-            <span class="eyebrow text-uppercase text-muted d-block mb-2" style="font-size: 0.65rem; letter-spacing: 0.12em;">Collection I</span>
-            <h3 class="h5 font-serif text-dark mb-2">Ceramic Jewelry</h3>
-            <p class="text-secondary small mb-4" style="font-size: 0.85rem; line-height: 1.5;">Lightweight porcelain pendants, statement earrings, and glazed rings crafted for everyday wear.</p>
-          </div>
-          <%= link_to "Explore Jewelry →", products_path, class: "text-dark text-decoration-none small fw-medium hover-underline" %>
-        </div>
-      </div>
-
-      <div class="col-md-4">
-        <div class="p-4 border border-light-subtle bg-white h-100 d-flex flex-column justify-content-between">
-          <div>
-            <span class="eyebrow text-uppercase text-muted d-block mb-2" style="font-size: 0.65rem; letter-spacing: 0.12em;">Collection II</span>
-            <h3 class="h5 font-serif text-dark mb-2">Tableware & Cutlery</h3>
-            <p class="text-secondary small mb-4" style="font-size: 0.85rem; line-height: 1.5;">Hand-molded ceramic spoons, knife rests, and stoneware serving pieces for slow dining.</p>
-          </div>
-          <%= link_to "Explore Cutlery →", products_path, class: "text-dark text-decoration-none small fw-medium hover-underline" %>
-        </div>
-      </div>
-
-      <div class="col-md-4">
-        <div class="p-4 border border-light-subtle bg-white h-100 d-flex flex-column justify-content-between">
-          <div>
-            <span class="eyebrow text-uppercase text-muted d-block mb-2" style="font-size: 0.65rem; letter-spacing: 0.12em;">Collection III</span>
-            <h3 class="h5 font-serif text-dark mb-2">Home Accents</h3>
-            <p class="text-secondary small mb-4" style="font-size: 0.85rem; line-height: 1.5;">Minimalist ceramic vessels, incense holders, and ring dishes designed to elevate intimate spaces.</p>
-          </div>
-          <%= link_to "Explore Objects →", products_path, class: "text-dark text-decoration-none small hover-underline" %>
-        </div>
-      </div>
-    </div>
-
-    <%# Craftsmanship Highlights Bar %>
-    <div class="row g-0 border border-light-subtle bg-white text-center py-4">
-      <div class="col-md-4 border-bottom border-md-0 border-end-md border-light-subtle p-3">
-        <p class="nav-caps text-dark mb-1" style="font-size: 0.72rem; letter-spacing: 0.12em;">Hand-Molded & Thrown</p>
-        <span class="text-muted small" style="font-size: 0.8rem;">Every piece carries subtle, one-of-a-kind craft variations.</span>
-      </div>
-      <div class="col-md-4 border-bottom border-md-0 border-end-md border-light-subtle p-3">
-        <p class="nav-caps text-dark mb-1" style="font-size: 0.72rem; letter-spacing: 0.12em;">Food-Safe & Lead-Free</p>
-        <span class="text-muted small" style="font-size: 0.8rem;">High-temperature fired glazes safe for daily kitchen use.</span>
-      </div>
-      <div class="col-md-4 p-3">
-        <p class="nav-caps text-dark mb-1" style="font-size: 0.72rem; letter-spacing: 0.12em;">Small-Batch Crafting</p>
-        <span class="text-muted small" style="font-size: 0.8rem;">Limited releases created intentionally to eliminate waste.</span>
-      </div>
-    </div>
   <% end %>
-
 </div>
+

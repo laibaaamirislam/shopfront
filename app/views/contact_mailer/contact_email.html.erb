@@ -1,0 +1,12 @@
+<div style="font-family: Arial, sans-serif; padding: 20px; color: #5C3A40; max-width: 600px;">
+  <h2 style="color: #B87A85; border-bottom: 1px solid #E3CFCA; padding-bottom: 10px;">
+    New Shopfront Inquiry
+  </h2>
+  <p><strong>From:</strong> <%= @name %> (&lt;<%= @email %>&gt;)</p>
+  <p><strong>Subject:</strong> <%= @subject %></p>
+  <hr style="border: 0; border-top: 1px solid #E3CFCA; margin: 20px 0;" />
+  <p><strong>Message:</strong></p>
+  <div style="background-color: #FBF6F3; padding: 15px; border-radius: 4px; border: 1px solid #E3CFCA; white-space: pre-wrap;">
+    <%= @message %>
+  </div>
+</div>

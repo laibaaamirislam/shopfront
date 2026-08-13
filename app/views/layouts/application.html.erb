@@ -33,7 +33,7 @@
             <%= link_to "Catalog", products_path, class: "nav-caps text-secondary text-decoration-none hover-underline" %>
             <%= link_to "Cart (#{current_cart.cart_items.sum(:quantity)})", cart_path, class: "nav-caps text-dark text-decoration-none fw-medium" %>
             <%= link_to "My Orders", orders_path, class: "nav-caps text-secondary text-decoration-none hover-underline" %>
-            <%= button_to "Log Out", logout_path, method: :delete, class: "btn btn-outline-dark btn-sm rounded-0 px-2 py-1 fw-normal ms-1", form: { style: "display:inline;" } %>
+            <%= button_to "Log Out", logout_path, method: :delete, class: "btn btn-outline btn-sm rounded-0 px-2 py-1 fw-normal ms-1", form: { style: "display:inline;" } %>
             <%= link_to "My Account", user_path(current_user), class: "nav-caps" %>
 
   <div class="dropdown">

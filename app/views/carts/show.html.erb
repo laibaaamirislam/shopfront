@@ -12,8 +12,14 @@
           <p class="related-price"><%= number_to_currency(item.product.price) %> each</p>
         </div>
 
+
         <%= form_with model: item, url: cart_item_path(item), method: :patch, local: true, class: "d-flex align-items-center gap-2" do |form| %>
-          <%= form.number_field :quantity, min: 1, value: item.quantity, class: "form-control", style: "width: 70px;" %>
+          <%= form.number_field :quantity, 
+                                min: 1, 
+                                max: item.product.stock_quantity, 
+                                value: item.quantity, 
+                                class: "form-control", 
+                                style: "width: 70px;" %>
           <%= form.submit "Update", class: "btn btn-outline-editorial btn-sm" %>
         <% end %>
 

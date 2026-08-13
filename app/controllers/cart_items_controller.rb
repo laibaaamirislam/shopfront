@@ -11,8 +11,11 @@ class CartItemsController < ApplicationController
 
   def update
     item = current_cart.cart_items.find(params[:id])
-    item.update(quantity: params[:quantity])
-    redirect_to cart_path
+    if item.update(cart_item_params)
+      redirect_to cart_path, notice: "Cart updated."
+    else
+      redirect_to cart_path, alert: @cart_item.errors.full_messages.to_sentence
+    end
   end
 
   def destroy
@@ -20,4 +23,12 @@ class CartItemsController < ApplicationController
     item.destroy
     redirect_to cart_path
   end
+
+
+  private
+
+  def cart_item_params
+    params.require(:cart_item).permit(:quantity)
+  end
+
 end

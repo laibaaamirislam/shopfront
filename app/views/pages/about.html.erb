@@ -1,2 +1,53 @@
-<h1>Pages#about</h1>
-<p>Find me in app/views/pages/about.html.erb</p>
+<!-- app/views/pages/about.html.erb --> 
+<div class="container py-3"> 
+  <%# Outer Pink Frame Card %> 
+  <div class="jumbotron-card mb-5"> 
+     
+    <%# Inner Cream Card %> 
+    <div class="content-card text-center m-0"> 
+      <div class="py-3 mx-auto" style="max-width: 720px;"> 
+         
+        <span class="eyebrow d-block text-uppercase mb-2"> 
+          Our Story & Craft 
+        </span> 
+ 
+        <h1 class="product-title mb-4 fs-1"> 
+          Handmade in Colour & Clay 
+        </h1> 
+ 
+        <p class="product-desc mb-4 fs-6"> 
+          Rangrez is a celebration of colour, creativity, and things made by hand. 
+          From playful jewellery to unique ceramics and home décor, we bring together 
+          pieces that add a little more character, warmth, and colour to everyday life.
+        </p> 
+ 
+        <hr class="my-4" style="border-color: #E3CFCA; opacity: 0.6;" /> 
+ 
+        <div class="row text-start py-3 g-4"> 
+          <div class="col-md-6"> 
+            <h3 class="related-heading mb-2 fs-5">Made by Hand</h3> 
+            <p class="product-desc"> 
+              Every Rangrez piece carries the touch of its maker. Small variations 
+              in shape, texture, colour, and finish are what make each piece uniquely yours.
+            </p> 
+          </div> 
+ 
+          <div class="col-md-6"> 
+            <h3 class="related-heading mb-2 fs-5">Made to Be Loved</h3> 
+            <p class="product-desc"> 
+              We believe beautiful things belong in everyday life. Whether it is a 
+              favourite pair of earrings, a colourful bowl, or a little planter, 
+              our pieces are made to bring joy to the spaces and moments around you.
+            </p> 
+          </div> 
+        </div> 
+ 
+        <div class="pt-4"> 
+          <%= link_to "Explore Catalog", products_path, class: "btn btn-outline-editorial px-4" %> 
+        </div> 
+ 
+      </div> 
+    </div> 
+ 
+  </div> 
+</div>

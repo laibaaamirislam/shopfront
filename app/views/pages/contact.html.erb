@@ -1,2 +1,47 @@
-<h1>Pages#contact</h1>
-<p>Find me in app/views/pages/contact.html.erb</p>
+<!-- app/views/pages/contact.html.erb -->
+<div class="container py-3">
+  <div class="jumbotron-card mb-5">
+    <div class="content-card m-0">
+      <div class="py-3 mx-auto" style="max-width: 760px;">
+        
+        <div class="text-center mb-4">
+          <span class="eyebrow d-block text-uppercase mb-2">Get In Touch</span>
+          <h1 class="product-title mb-3 fs-1">We'd Love to Hear From You</h1>
+          <p class="product-desc mx-auto" style="max-width: 540px;">
+            Have a question about custom commissions, order fulfillment, or wholesale inquiries? Send us a message below.
+          </p>
+        </div>
+
+        <%# Rails form helper submitting to contact_path %>
+        <%= form_with url: contact_path, method: :post, local: true, class: "mt-4" do |f| %>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <%= f.label :name, "Your Name", class: "eyebrow d-block mb-1" %>
+              <%= f.text_field :name, class: "form-control editorial-input", placeholder: "e.g. Jane Doe", required: true %>
+            </div>
+
+            <div class="col-md-6">
+              <%= f.label :email, "Email Address", class: "eyebrow d-block mb-1" %>
+              <%= f.email_field :email, class: "form-control editorial-input", placeholder: "jane@example.com", required: true %>
+            </div>
+
+            <div class="col-12">
+              <%= f.label :subject, "Subject", class: "eyebrow d-block mb-1" %>
+              <%= f.text_field :subject, class: "form-control editorial-input", placeholder: "Order Inquiry, Custom Order, etc." %>
+            </div>
+
+            <div class="col-12">
+              <%= f.label :message, "Message", class: "eyebrow d-block mb-1" %>
+              <%= f.text_area :message, rows: 5, class: "form-control editorial-input", placeholder: "Write your message here...", required: true %>
+            </div>
+
+            <div class="col-12 text-center pt-3">
+              <%= f.submit "Send Message", class: "btn btn-outline-editorial px-5" %>
+            </div>
+          </div>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -32,7 +32,8 @@ Rails.application.routes.draw do
   get  "checkout", to: "checkouts#new"
   post "checkout", to: "checkouts#create"
 
-
+  get  'contact', to: 'pages#contact'
+  post 'contact', to: 'pages#create_contact'
 
   resources :orders, only: [:index, :show]
 
