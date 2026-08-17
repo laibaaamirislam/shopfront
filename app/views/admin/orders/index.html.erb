@@ -1,17 +1,72 @@
-<!-- app/views/admin/orders/index.html.erb -->
-<h1 class="h3 mb-4">Orders</h1>
+<div class="content-card">
 
-<table class="table">
-  <thead><tr><th>Order</th><th>Customer</th><th>Date</th><th>Total</th><th>Status</th></tr></thead>
-  <tbody>
-    <% @orders.each do |order| %>
-      <tr>
-        <td><%= link_to "##{order.id}", admin_order_path(order) %></td>
-        <td><%= order.user.email %></td>
-        <td><%= order.created_at.strftime("%b %d, %Y") %></td>
-        <td><%= number_to_currency(order.total_price) %></td>
-        <td><span class="badge bg-secondary"><%= order.status %></span></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+  <%# Header Block %>
+  <div class="d-flex justify-content-between align-items-end mb-4">
+    <div>
+      <p class="eyebrow">Overview</p>
+      <h1 class="product-title mb-0">Orders</h1>
+    </div>
+  </div>
+
+  <%# Orders Table %>
+  <div class="related-section">
+    <div class="table-responsive">
+      <table class="table align-middle mb-0" style="--bs-table-bg: transparent;">
+        <thead>
+          <tr class="border-bottom">
+            <th class="nav-caps text-uppercase py-3 ps-0">Order</th>
+            <th class="nav-caps text-uppercase py-3">Customer</th>
+            <th class="nav-caps text-uppercase py-3">Date</th>
+            <th class="nav-caps text-uppercase py-3">Total</th>
+            <th class="nav-caps text-uppercase py-3">Status</th>
+            <th class="nav-caps text-uppercase py-3 text-end pe-0">Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @orders.each do |order| %>
+            <tr class="border-bottom border-light">
+              
+              <%# Order ID %>
+              <td class="py-3 ps-0">
+                <%= link_to "##{order.id}", admin_order_path(order), class: "brand-wordmark fs-6" %>
+              </td>
+
+              <%# Customer Email %>
+              <td class="py-3">
+                <span class="eyebrow mb-0 text-lowercase" style="font-size: 0.85rem;"><%= order.user.email %></span>
+              </td>
+
+              <%# Order Date %>
+              <td class="py-3">
+                <span class="related-price" style="font-size: 0.85rem;"><%= order.created_at.strftime("%b %d, %Y") %></span>
+              </td>
+
+              <%# Total Price %>
+              <td class="py-3">
+                <span class="related-price"><%= number_to_currency(order.total_price) %></span>
+              </td>
+
+              <%# Status Badge %>
+              <td class="py-3">
+                <span class="badge rounded-pill fw-normal px-3 py-2 text-uppercase" style="background-color: #EFE9DF; color: #5C544B; font-size: 0.67rem; letter-spacing: 0.05em;">
+                  <%= order.status %>
+                </span>
+              </td>
+
+              <%# Actions %>
+              <td class="py-3 text-end pe-0">
+                <%= link_to "View Details",
+                            admin_order_path(order),
+                            class: "text-secondary text-decoration-none small hover-underline",
+                            style: "font-size: 0.85rem; color: #6C757D;" %>
+              </td>
+
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
