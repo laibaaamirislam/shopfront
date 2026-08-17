@@ -1,6 +1,7 @@
 # app/controllers/categories_controller.rb
 class CategoriesController < ApplicationController
   before_action :set_category, only: [:show, :edit, :update, :destroy]
+  before_action :require_admin, except: [:index, :show]
 
   def index
     @categories = Category.all
