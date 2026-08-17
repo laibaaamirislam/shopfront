@@ -2,6 +2,7 @@
 class ProductsController < ApplicationController
 
     before_action :set_product, only: [:show, :edit, :update, :destroy]
+    before_action :require_admin, except: [:index, :show]
 
     def show
     @related_products = @product.category.products
@@ -35,8 +36,6 @@ class ProductsController < ApplicationController
     end
 
     def update
-        
-
         if @product.update(product_params)
             flash[:notice] = "Product was updated successfully."
             redirect_to product_path(@product)
@@ -63,9 +62,9 @@ class ProductsController < ApplicationController
     end
 
     def require_admin
-        unless logged_in? && current_user.admin?
-        flash[:alert] = "Only admins can perform that action."
-        redirect_to categories_path
+        if !(current_user.admin?)
+            flash[:alert] = "Only admins can perform that action"
+            redirect_to products_path
         end
     end
 
