@@ -1,5 +1,18 @@
-<!-- app/views/orders/_order.html.erb -->
-<div class="d-flex justify-content-between align-items-center border-bottom pb-2">
-  <%= link_to "Order ##{order.id} — #{order.created_at.strftime('%b %d, %Y')}", order_path(order), class: "text-dark text-decoration-none fw-medium" %>
-  <span class="fw-bold"><%= number_to_currency(order.total_price) %></span>
+
+
+<div class="d-flex justify-content-between align-items-center p-3 mb-2 bg-light rounded border hover-shadow-sm">
+  <div class="d-flex align-items-center gap-2">
+    <i class="bi bi-receipt text-muted fs-5"></i>
+    <div>
+      <%= link_to "Order ##{order.id}", order_path(order), class: "text-dark text-decoration-none fw-bold d-block" %>
+      <small class="text-muted"><%= order.created_at.strftime('%b %d, %Y at %I:%M %p') %></small>
+    </div>
+  </div>
+  
+  <div class="text-end">
+    <div class="fw-bold text-primary"><%= number_to_currency(order.total_price) %></div>
+    <% if respond_to?(:order) && order.respond_to?(:status) %>
+      <span class="badge bg-secondary rounded-pill"><%= order.status.titleize %></span>
+    <% end %>
+  </div>
 </div>
