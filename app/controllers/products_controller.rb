@@ -2,6 +2,7 @@
 class ProductsController < ApplicationController
 
     before_action :set_product, only: [:show, :edit, :update, :destroy]
+    before_action :require_login, except: [:index, :show]
     before_action :require_admin, except: [:index, :show]
 
     def show

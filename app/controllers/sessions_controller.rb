@@ -6,11 +6,9 @@ class SessionsController < ApplicationController
     if user&.authenticate(params[:password])
       session[:user_id] = user.id
 
-      # Handle temporary guest cart created before logging in
       if session[:cart_id] && (guest_cart = Cart.find_by(id: session[:cart_id]))
         user_cart = user.cart || user.create_cart
 
-        # Transfer items from guest cart to user's permanent cart
         guest_cart.cart_items.each do |item|
           existing_item = user_cart.cart_items.find_by(product_id: item.product_id)
           if existing_item
